@@ -41,6 +41,10 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+//$app->register(
+//    Dingo\Api\Provider\LumenServiceProvider::class
+//);
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
