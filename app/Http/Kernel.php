@@ -57,6 +57,6 @@ class Kernel extends HttpKernel
 //        'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
 
 //        'api.auth' => \Dingo\Api\Auth\Provider\JWT::class
-        'api.auth' => \Tymon\JWTAuth\Providers\Auth\IlluminateAuthAdapter::class
+//        'api.auth' => \Tymon\JWTAuth\Providers\Auth\IlluminateAuthAdapter::class
     ];
 }

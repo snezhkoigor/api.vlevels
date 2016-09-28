@@ -9,6 +9,7 @@
 namespace App\Api\V1\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use Dingo\Api\Routing\Helpers;
 use JWTAuth;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -16,6 +17,8 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthenticateController extends Controller
 {
+    use Helpers;
+
     public function __construct()
     {
         // Only apply to a subset of methods.
@@ -90,6 +93,7 @@ class AuthenticateController extends Controller
     public function getToken()
     {
         $token = JWTAuth::getToken();
+
         if (!$token) {
             return $this->response->errorMethodNotAllowed('Token not provided');
         }
@@ -98,6 +102,7 @@ class AuthenticateController extends Controller
         } catch (JWTException $e) {
             return $this->response->errorInternal('Not able to refresh Token');
         }
+
         return $this->response->withArray(['token' => $refreshedToken]);
     }
 }
