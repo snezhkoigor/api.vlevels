@@ -15,10 +15,16 @@ use Illuminate\Http\Request;
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', function ($api) {
-    $api->get('/', function() {
-        return ['API' => 'Hello World!'];
-    });
+$api->version('v1',  function ($api) {
+//    $api->get('/', function() {
+//        return ['API' => 'Hello World!'];
+//    });
 
-    $api->get('users/{id}', 'App\Api\V1\Controllers\UserController@show');
+    $api->post('users/{id}', 'App\Api\V1\Controllers\User\UserController@show');
+    $api->post('users', 'App\Api\V1\Controllers\User\UserController@all');
+
+    $api->post('authenticate', 'App\Api\V1\Controllers\User\AuthenticateController@authenticate');
+    $api->post('logout', 'App\Api\V1\Controllers\User\AuthenticateController@logout');
+    $api->post('token', 'App\Api\V1\Controllers\User\AuthenticateController@getToken');
+    $api->post('me', 'App\Api\V1\Controllers\User\AuthenticateController@authenticatedUser');
 });
