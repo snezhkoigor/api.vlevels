@@ -185,7 +185,7 @@ return [
     */
 
     'throttling' => [
-
+        Dingo\Api\Http\RateLimit\Throttle\Authenticated::class
     ],
 
     /*
@@ -216,9 +216,7 @@ return [
     'defaultFormat' => env('API_DEFAULT_FORMAT', 'json'),
 
     'formats' => [
-
         'json' => Dingo\Api\Http\Response\Format\Json::class,
-
     ],
 
 ];

@@ -9,6 +9,9 @@
 namespace App\Api\V1\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Transformers\User\UserTransformer;
+use Dingo\Api\Auth\Auth;
+use Dingo\Api\Auth\Provider\JWT;
 use Dingo\Api\Routing\Helpers;
 use JWTAuth;
 use App\Http\Requests;
@@ -40,29 +43,25 @@ class AuthenticateController extends Controller
         try {
             // attempt to verify the credentials and create a token for the user
             if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 401);
+                $this->response->errorUnauthorized('invalid_credentials');
             }
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'could_not_create_token'], 500);
+            $this->response->errorInternal('could_not_create_token');
         }
         // all good so return the token
-        return response()->json(compact('token'));
+        return $this->response->array(['token' => $token]);
     }
+
     /**
      * Log out
      * Invalidate the token, so user cannot use it anymore
      * They have to relogin to get a new token
      *
-     * @param Request $request
      */
-    public function logout(Request $request)
+    public function logout()
     {
-        $this->validate($request, [
-            'token' => 'required'
-        ]);
-
-        JWTAuth::invalidate($request->input('token'));
+        JWTAuth::parseToken()->invalidate();
     }
     /**
      * Returns the authenticated user
@@ -73,7 +72,7 @@ class AuthenticateController extends Controller
     {
         try {
             if (!$user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json(['user_not_found'], 404);
+                $this->response->errorNotFound('user_not_found');
             }
         } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
             return response()->json(['token_expired'], $e->getStatusCode());
@@ -82,8 +81,9 @@ class AuthenticateController extends Controller
         } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
             return response()->json(['token_absent'], $e->getStatusCode());
         }
+
         // the token is valid and we have found the user via the sub claim
-        return response()->json(compact('user'));
+        return $this->response->item($user, new UserTransformer);
     }
     /**
      * Refresh the token
@@ -95,14 +95,14 @@ class AuthenticateController extends Controller
         $token = JWTAuth::getToken();
 
         if (!$token) {
-            return $this->response->errorMethodNotAllowed('Token not provided');
+            $this->response->errorMethodNotAllowed('Token not provided');
         }
         try {
             $refreshedToken = JWTAuth::refresh($token);
         } catch (JWTException $e) {
-            return $this->response->errorInternal('Not able to refresh Token');
+            $this->response->errorInternal('Not able to refresh Token');
         }
 
-        return $this->response->withArray(['token' => $refreshedToken]);
+        return $this->response->array(['token' => $refreshedToken]);
     }
 }

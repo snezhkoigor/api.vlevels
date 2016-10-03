@@ -178,9 +178,17 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // API
         Dingo\Api\Provider\LaravelServiceProvider::class,
 
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class
+        // OAuth
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+
+        // Roles and Permissions
+        Zizaco\Entrust\EntrustServiceProvider::class,
+
+        // API debuger
+        Lanin\ApiDebugger\DebuggerServiceProvider::class
     ],
 
     /*
@@ -231,6 +239,10 @@ return [
 
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+
+        'Entrust' => Zizaco\Entrust\EntrustFacade::class,
+
+        'Debugger' => Lanin\ApiDebugger\DebuggerFacade::class,
     ],
 
 ];
