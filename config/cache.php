@@ -4,6 +4,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Cache time to live
+    |--------------------------------------------------------------------------
+    |
+    | Specify the length of time (in minutes) that the cache will be valid for.
+    | Defaults to 1 year
+    |
+    */
+
+    'ttl' => 518400,
+
+    /*
+    |--------------------------------------------------------------------------
     | Default Cache Store
     |--------------------------------------------------------------------------
     |
@@ -27,6 +39,8 @@ return [
     | same cache driver to group types of items stored in your caches.
     |
     */
+
+
 
     'stores' => [
 

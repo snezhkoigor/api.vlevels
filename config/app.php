@@ -186,9 +186,6 @@ return [
 
         // Roles and Permissions
         Zizaco\Entrust\EntrustServiceProvider::class,
-
-        // API debuger
-        Lanin\ApiDebugger\DebuggerServiceProvider::class
     ],
 
     /*

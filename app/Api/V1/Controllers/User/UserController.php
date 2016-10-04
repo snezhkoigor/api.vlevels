@@ -2,13 +2,11 @@
 
 namespace App\Api\V1\Controllers\User;
 
-use App\Role;
 use Illuminate\Http\Request;
 use App\User;
 use App\Api\V1\Controllers\BaseController;
 use App\Transformers\User\UserTransformer;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 
@@ -35,13 +33,20 @@ class UserController extends BaseController
     public static $rules = [
         'email' => 'required|unique:users|max:255',
         'password' => 'required|max:255',
-        'role' => 'bail|required',
+        'role' => 'bail|required|exists:roles,id',
     ];
+
+//    public static $messages = [
+//        'same'    => 'The :attribute and :other must match.',
+//        'size'    => 'The :attribute must be exactly :size.',
+//        'between' => 'The :attribute must be between :min - :max.',
+//        'in'      => 'The :attribute must be one of the following types: :values',
+//    ];
 
     public function __construct()
     {
         $this->middleware('api.auth');
-        $this->middleware('role:admin')->only('create');
+        $this->middleware('role:admin')->only(array('create', 'all'));
     }
 
     public function create(Request $request)
@@ -51,8 +56,6 @@ class UserController extends BaseController
         if ($validator->fails()) {
             $this->response->errorBadRequest($validator->messages());
         } else {
-            $role = Role::findOrFail($request->role);
-
             $user = new User();
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
@@ -68,7 +71,7 @@ class UserController extends BaseController
             $user->updated_at = time();
             $user->save();
 
-            $user->attachRole($role);
+            $user->attachRole($request->role);
 
             return $this->response->item($user, new UserTransformer)->setStatusCode(200);
         }
@@ -99,14 +102,14 @@ class UserController extends BaseController
         return $this->response->paginator($users, new UserTransformer)->setStatusCode(200);
     }
 
-    public function show($id)
+    public function show(Request $request)
     {
-        $user = User::find($id);
+        $user = User::where('id', '=', $request->id)->first();
 
-        if ($user) {
+        if (!empty($user)) {
             return $this->response->item($user, new UserTransformer)->setStatusCode(200);
-        } else {
-            $this->response->errorNotFound();
         }
+
+        $this->response->errorNotFound();
     }
 }

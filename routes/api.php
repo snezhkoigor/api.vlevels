@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,5 +23,11 @@ $api->version('v1',  function ($api) {
     $api->post('token', 'App\Api\V1\Controllers\User\AuthenticateController@getToken');
     $api->post('me', 'App\Api\V1\Controllers\User\AuthenticateController@authenticatedUser');
 
+    $api->post('roles', 'App\Api\V1\Controllers\Role\RoleController@all');
     $api->post('role/create', 'App\Api\V1\Controllers\Role\RoleController@create');
+    $api->post('role/{id}', 'App\Api\V1\Controllers\Role\RoleController@show')->where('id', '[0-9]+');
+    $api->post('role/store/{id}', 'App\Api\V1\Controllers\Role\RoleController@store')->where('id', '[0-9]+');
+    $api->post('role/delete/{id}', 'App\Api\V1\Controllers\Role\RoleController@delete')->where('id', '[0-9]+');
+
+    $api->post('permission/create', 'App\Api\V1\Controllers\Permission\PermissionController@create');
 });

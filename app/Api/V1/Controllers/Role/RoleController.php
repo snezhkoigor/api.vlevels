@@ -33,6 +33,22 @@ class RoleController extends BaseController
         $this->middleware(array('api.auth', 'role:admin'));
     }
 
+    public function show(Request $request)
+    {
+        $role = Role::where('id', '=', $request->id)->first();
+
+        if (!empty($role)) {
+            return $this->response->item($role, new RoleTransformer)->setStatusCode(200);
+        }
+
+        $this->response->errorNotFound();
+    }
+
+    public function all(Request $request)
+    {
+        return $this->response->collection(Role::all(), new RoleTransformer)->setStatusCode(200);
+    }
+    
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), self::$rules);
@@ -48,5 +64,40 @@ class RoleController extends BaseController
 
             return $this->response->item($role, new RoleTransformer)->setStatusCode(200);
         }
+    }
+
+    public function store(Request $request)
+    {
+        $role = Role::where('id', '=', $request->id)
+            ->first();
+        
+        if (!empty($role)) {
+            $role->name = $request->name;
+            $role->display_name = $request->display_name; // optional
+            $role->description = $request->description; // optional
+            $role->save();
+
+            return $this->response->item($role, new RoleTransformer)->setStatusCode(200);
+        }
+
+        $this->response->errorNotFound();
+    }
+
+    public function delete(Request $request)
+    {
+        $role = Role::where('id', '=', $request->id)
+            ->first();
+
+        if (!empty($role)) {
+            // Force Delete
+//            $role->users()->sync([]); // Delete relationship data
+//            $role->permissions()->sync([]); // Delete relationship data
+
+            $role->delete();
+
+            return $this->response->noContent();
+        }
+
+        $this->response->errorNotFound();
     }
 }

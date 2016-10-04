@@ -21,6 +21,8 @@ class RoleTransformer extends TransformerAbstract
             'name' => $role->name,
             'display_name' => $role->display_name,
             'description' => $role->description,
+            'users' => $role->users,
+            'permissions' => $role->permissions,
             'created_at' => empty($role->created_at) ? null : date('Y-m-d H:i:s', strtotime($role->created_at)),
             'updated_dt' => empty($role->updated_at) ? null : date('Y-m-d H:i:s', strtotime($role->updated_at)),
         ];

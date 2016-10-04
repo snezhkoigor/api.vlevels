@@ -27,7 +27,8 @@ class UserTransformer extends TransformerAbstract
             'balance' => (float)$user->balance,
             'birthday' => empty($user->birthday) ? null : date('Y-m-d', strtotime($user->birthday)),
             'comment' => $user->comment,
-            'role' => $user->roles[0]->id, // пользователь пока может иметь только одну роль
+            'role' => $user->roles, // пользователь пока может иметь только одну роль
+            'permissions' => $user->permissions,
             'created_at' => empty($user->created_at) ? null : date('Y-m-d H:i:s', strtotime($user->created_at)),
             'updated_dt' => empty($user->updated_at) ? null : date('Y-m-d H:i:s', strtotime($user->updated_at)),
         ];
