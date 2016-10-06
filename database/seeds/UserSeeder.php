@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use \Illuminate\Support\Facades\Hash;
 use \App\User;
 use \App\Role;
+use \Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
@@ -14,6 +15,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->truncate();
+
         $role = Role::where('name', '=', 'admin')->first();
 
         $admin = User::create([
