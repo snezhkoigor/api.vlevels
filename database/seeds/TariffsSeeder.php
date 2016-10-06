@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Tariff;
+use \Illuminate\Support\Facades\DB;
 
 class TariffsSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class TariffsSeeder extends Seeder
      */
     public function run()
     {
+//        DB::table('tariffs')->truncate();
+
         Tariff::create([
             'id' => 1,
             'name' => 'Lite',
