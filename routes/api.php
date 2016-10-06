@@ -16,6 +16,10 @@ use Illuminate\Http\Request;
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1',  ['namespace' => 'App\\Api\\V1\\Controllers'], function ($api) {
+    $api->get('/', function(){
+        return 'true';
+    });
+
     $api->post('users', 'User\UserController@all');
     $api->post('user/{id}', 'User\UserController@show')->where('id', '[0-9]+');
     $api->post('user/create', 'User\UserController@create');
