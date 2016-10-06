@@ -13,13 +13,7 @@
 
 $api = app('Dingo\Api\Routing\Router');
 
-$params = array(
-    'version' => 'v1',
-    'domain' => 'newapi.vlevels.ru',
-    'namespace' => 'App\\Api\\V1\\Controllers',
-);
-
-$api->version('v1',  $params, function ($api) {
+$api->version('v1',  ['namespace' => 'App\\Api\\V1\\Controllers'], function ($api) {
     $api->post('users', 'User\UserController@all');
     $api->post('user/{id}', 'User\UserController@show')->where('id', '[0-9]+');
     $api->post('user/create', 'User\UserController@create');
