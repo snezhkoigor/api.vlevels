@@ -22,6 +22,7 @@ class PermissionTransformer extends TransformerAbstract
             'display_name' => $permission->display_name,
             'description' => $permission->description,
             'roles' => $permission->roles,
+            'users' => $permission->users,
             'created_at' => empty($permission->created_at) ? null : date('Y-m-d H:i:s', strtotime($permission->created_at)),
             'updated_dt' => empty($permission->updated_at) ? null : date('Y-m-d H:i:s', strtotime($permission->updated_at)),
         ];

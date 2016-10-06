@@ -40,8 +40,6 @@ class PermissionController extends BaseController
 
     public function create(Request $request)
     {
-        
-        
         $validator = Validator::make($request->all(), self::$rules);
 
         if ($validator->fails()) {

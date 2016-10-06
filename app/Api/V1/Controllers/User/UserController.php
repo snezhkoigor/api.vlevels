@@ -2,12 +2,15 @@
 
 namespace App\Api\V1\Controllers\User;
 
+use App\Activation;
+use App\Role;
 use Illuminate\Http\Request;
 use App\User;
 use App\Api\V1\Controllers\BaseController;
 use App\Transformers\User\UserTransformer;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 
 class UserController extends BaseController
@@ -45,7 +48,7 @@ class UserController extends BaseController
 
     public function __construct()
     {
-        $this->middleware('api.auth');
+        $this->middleware('api.auth')->only(array('create', 'all', 'show'));
         $this->middleware('role:admin')->only(array('create', 'all'));
     }
 
@@ -111,5 +114,65 @@ class UserController extends BaseController
         }
 
         $this->response->errorNotFound();
+    }
+
+    public function registration(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|unique:users|max:255',
+            'password' => 'required|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            $this->response->errorBadRequest($validator->messages());
+        } else {
+            $user = new User();
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->created_at = time();
+            $user->updated_at = time();
+            $user->save();
+
+            $activation = Activation::add($user);
+
+            Mail::send('emails.activation', array('code' => $activation->code), function($message) use ($user) {
+                $message->to($user->email)->subject('Верификация');
+            });
+
+            return $this->response->item($user, new UserTransformer)->setStatusCode(200);
+        }
+    }
+
+    public function activation(Request $request)
+    {
+        if (empty($request->code)) {
+            $activation = Activation::where([
+                ['code', '=', $request->code],
+                ['complete', '=', false],
+            ])->first();
+
+            if ($activation) {
+                $role = Role::where(['name', '=', 'client'])->first();
+                $user = User::where(['id', '=', $activation->user_id])->first();
+
+                if ($role && $user) {
+                    Activation::complete($user, $request->code);
+                    $user->attachRole($role);
+
+                    return $this->response->item($user, new UserTransformer)->setStatusCode(200);
+                }
+            }
+        }
+
+        $this->response->errorInternal('Wrong activation code.');
+    }
+
+    public function reminder(Request $request)
+    {
+        if (empty($request->code)) {
+            // меняем пароль по коду
+        } else {
+            // высылаем код для смены пароля по мейлу
+        }
     }
 }

@@ -4,6 +4,28 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Reminder code time to live
+    |--------------------------------------------------------------------------
+    |
+    | Specify the length of time (in days) that the reminder code will be valid for.
+    | Defaults to 30 days
+    */
+
+    'reminder_expiration' => env('REMINDER_EXPIRATION', 30),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Activation code time to live
+    |--------------------------------------------------------------------------
+    |
+    | Specify the length of time (in days) that the activation code will be valid for.
+    | Defaults to 30 days
+    */
+
+    'activation_expiration' => env('ACTIVATION_EXPIRATION', 30),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Name
     |--------------------------------------------------------------------------
     |
@@ -12,7 +34,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'CME Vlevels',
+    'name' => 'Vlevels',
 
     /*
     |--------------------------------------------------------------------------
@@ -51,7 +73,11 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://api.vlevels.ru'),
+    'url' => env('APP_URL', 'http://cabinet.vlevels.ru'),
+
+//    'website_url' => env('APP_WEBSITE_URL', 'http://vlevels.ru'),
+//
+//    'cabinet_url' => env('APP_CABINET_URL', 'http://cabinet.vlevels.ru'),
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +90,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Moscow',
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +103,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -90,7 +116,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -120,7 +146,9 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
+
+    'log_max_files' => 30,
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -186,6 +214,9 @@ return [
 
         // Roles and Permissions
         Zizaco\Entrust\EntrustServiceProvider::class,
+
+        // Countries
+        Gerardojbaez\GeoData\GeoDataServiceProvider::class,
     ],
 
     /*
@@ -238,8 +269,6 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
 
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
-
-        'Debugger' => Lanin\ApiDebugger\DebuggerFacade::class,
     ],
 
 ];

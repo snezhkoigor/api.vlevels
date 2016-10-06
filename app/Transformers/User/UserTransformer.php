@@ -29,6 +29,7 @@ class UserTransformer extends TransformerAbstract
             'comment' => $user->comment,
             'role' => $user->roles, // пользователь пока может иметь только одну роль
             'permissions' => $user->permissions,
+            'activation' => $user->activation,
             'created_at' => empty($user->created_at) ? null : date('Y-m-d H:i:s', strtotime($user->created_at)),
             'updated_dt' => empty($user->updated_at) ? null : date('Y-m-d H:i:s', strtotime($user->updated_at)),
         ];
