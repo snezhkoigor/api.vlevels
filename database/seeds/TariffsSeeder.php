@@ -13,7 +13,7 @@ class TariffsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('tariffs')->truncate();
+//        DB::table('tariffs')->truncate();
 
         Tariff::create([
             'id' => 1,
