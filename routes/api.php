@@ -37,14 +37,4 @@ $api->version('v1',  function ($api) {
     $api->post('permission/{id}', 'App\Api\V1\Controllers\Permission\PermissionController@show')->where('id', '[0-9]+');
     $api->post('permission/store/{id}', 'App\Api\V1\Controllers\Permission\PermissionController@store')->where('id', '[0-9]+');
     $api->post('permission/delete/{id}', 'App\Api\V1\Controllers\Permission\PermissionController@delete')->where('id', '[0-9]+');
-
-    $api->get('/test', function() {
-        $beautymail = app()->make(Snowfire\Beautymail\Beautymail::class);
-        $beautymail->send('emails.welcome', [], function($message) {
-            $message
-                ->from('bar@example.com')
-                ->to('foo@example.com', 'John Smith')
-                ->subject('Welcome!');
-        });
-    });
 });
