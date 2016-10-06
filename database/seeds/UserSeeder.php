@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use \Illuminate\Support\Facades\Hash;
 use \App\User;
+use \App\Role;
 
 class UserSeeder extends Seeder
 {
@@ -13,7 +14,9 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $role = Role::where('name', '=', 'admin')->first();
+
+        $admin = User::create([
             'id' => 1,
             'email' => 'i.s.sergeevich@yandex.ru',
             'password' => Hash::make('florida840905'),
@@ -24,6 +27,6 @@ class UserSeeder extends Seeder
             'updated_at' => time()
         ]);
 
-
+        $admin->attachRole($role);
     }
 }
