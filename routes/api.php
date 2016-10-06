@@ -14,7 +14,7 @@
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1',  ['namespace' => 'App\\Api\\V1\\Controllers'], function ($api) {
-    $api->get('/test', function() {
+    $api->get('/', function() {
         return 'Oooooops';
     });
 
