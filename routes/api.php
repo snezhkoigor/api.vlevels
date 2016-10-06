@@ -24,7 +24,7 @@ $api->version('v1',  ['namespace' => 'App\\Api\\V1\\Controllers'], function ($ap
     $api->post('authenticate', 'User\AuthenticateController@authenticate');
     $api->post('logout', 'User\AuthenticateController@logout');
     $api->post('token', 'User\AuthenticateController@getToken');
-    $api->post('me', 'User\AuthenticateController@authenticatedUser');
+    $api->post('me', 'User\\AuthenticateController@authenticatedUser');
 
     $api->post('roles', 'Role\RoleController@all');
     $api->post('role/create', 'Role\RoleController@create');
