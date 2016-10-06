@@ -15,7 +15,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1',  ['namespace' => 'App\\Api\\V1\\Controllers'], function ($api) {
     $api->get('/', function() {
-        return 'Oooooops';
+        $this->response->errorNotFound('choose_method');
     });
 
     $api->post('users', 'User\UserController@all');
