@@ -13,28 +13,28 @@
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1',  function ($api) {
-    $api->post('users', 'App\Api\V1\Controllers\User\UserController@all');
-    $api->post('user/{id}', 'App\Api\V1\Controllers\User\UserController@show')->where('id', '[0-9]+');
-    $api->post('user/create', 'App\Api\V1\Controllers\User\UserController@create');
-    $api->post('registration', 'App\Api\V1\Controllers\User\UserController@registration');
-    $api->post('activation/{code}', 'App\Api\V1\Controllers\User\UserController@activation');
-    $api->post('reminder/{code?}', 'App\Api\V1\Controllers\User\UserController@reminder');
+$api->version('v1',  ['namespace' => 'App\Api\V1\Controllers'], function ($api) {
+    $api->post('users', 'User\UserController@all');
+    $api->post('user/{id}', 'User\UserController@show')->where('id', '[0-9]+');
+    $api->post('user/create', 'User\UserController@create');
+    $api->post('registration', 'User\UserController@registration');
+    $api->post('activation/{code}', 'User\UserController@activation');
+    $api->post('reminder/{code?}', 'User\UserController@reminder');
 
-    $api->post('authenticate', 'App\Api\V1\Controllers\User\AuthenticateController@authenticate');
-    $api->post('logout', 'App\Api\V1\Controllers\User\AuthenticateController@logout');
-    $api->post('token', 'App\Api\V1\Controllers\User\AuthenticateController@getToken');
-    $api->post('me', 'App\Api\V1\Controllers\User\AuthenticateController@authenticatedUser');
+    $api->post('authenticate', 'User\AuthenticateController@authenticate');
+    $api->post('logout', 'User\AuthenticateController@logout');
+    $api->post('token', 'User\AuthenticateController@getToken');
+    $api->post('me', 'User\AuthenticateController@authenticatedUser');
 
-    $api->post('roles', 'App\Api\V1\Controllers\Role\RoleController@all');
-    $api->post('role/create', 'App\Api\V1\Controllers\Role\RoleController@create');
-    $api->post('role/{id}', 'App\Api\V1\Controllers\Role\RoleController@show')->where('id', '[0-9]+');
-    $api->post('role/store/{id}', 'App\Api\V1\Controllers\Role\RoleController@store')->where('id', '[0-9]+');
-    $api->post('role/delete/{id}', 'App\Api\V1\Controllers\Role\RoleController@delete')->where('id', '[0-9]+');
+    $api->post('roles', 'Role\RoleController@all');
+    $api->post('role/create', 'Role\RoleController@create');
+    $api->post('role/{id}', 'Role\RoleController@show')->where('id', '[0-9]+');
+    $api->post('role/store/{id}', 'Role\RoleController@store')->where('id', '[0-9]+');
+    $api->post('role/delete/{id}', 'Role\RoleController@delete')->where('id', '[0-9]+');
 
-    $api->post('permissions', 'App\Api\V1\Controllers\Permission\PermissionController@all');
-    $api->post('permission/create', 'App\Api\V1\Controllers\Permission\PermissionController@create');
-    $api->post('permission/{id}', 'App\Api\V1\Controllers\Permission\PermissionController@show')->where('id', '[0-9]+');
-    $api->post('permission/store/{id}', 'App\Api\V1\Controllers\Permission\PermissionController@store')->where('id', '[0-9]+');
-    $api->post('permission/delete/{id}', 'App\Api\V1\Controllers\Permission\PermissionController@delete')->where('id', '[0-9]+');
+    $api->post('permissions', 'Permission\PermissionController@all');
+    $api->post('permission/create', 'Permission\PermissionController@create');
+    $api->post('permission/{id}', 'Permission\PermissionController@show')->where('id', '[0-9]+');
+    $api->post('permission/store/{id}', 'Permission\PermissionController@store')->where('id', '[0-9]+');
+    $api->post('permission/delete/{id}', 'Permission\PermissionController@delete')->where('id', '[0-9]+');
 });
