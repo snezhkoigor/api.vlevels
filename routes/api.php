@@ -13,7 +13,7 @@
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1',  ['namespace' => 'App\\Api\\V1\\Controllers'], function ($api) {
+$api->version('v1',  ['middleware' => 'cors', 'namespace' => 'App\Api\V1\Controllers'], function ($api) {
     $api->post('users', 'User\UserController@all');
     $api->post('user/{id}', 'User\UserController@show')->where('id', '[0-9]+');
     $api->post('user/create', 'User\UserController@create');
@@ -24,7 +24,7 @@ $api->version('v1',  ['namespace' => 'App\\Api\\V1\\Controllers'], function ($ap
     $api->post('authenticate', 'User\AuthenticateController@authenticate');
     $api->post('logout', 'User\AuthenticateController@logout');
     $api->post('token', 'User\AuthenticateController@getToken');
-    $api->post('me', 'User\\AuthenticateController@authenticatedUser');
+    $api->post('me', 'User\AuthenticateController@authenticatedUser');
 
     $api->post('roles', 'Role\RoleController@all');
     $api->post('role/create', 'Role\RoleController@create');
