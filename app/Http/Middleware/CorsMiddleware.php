@@ -33,7 +33,9 @@ class CorsMiddleware
             ->header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization')
             ->header('Access-Control-Allow-Credentials: true');
 
-        if ($request->getMethod() == 'OPTIONS' && $response->getStatusCode() == 405) {
+        if ($request->getMethod() == 'OPTIONS') {
+            header('Access-Control-Allow-Origin: *');
+
             return new Response('', 204, $response->headers->all());
         }
 
