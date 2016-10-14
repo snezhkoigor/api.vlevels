@@ -28,7 +28,6 @@ class CorsMiddleware
 
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
             header( "HTTP/1.1 200 OK" );
-            exit();
         }
 
         return $next($request);
