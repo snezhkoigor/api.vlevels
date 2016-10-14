@@ -24,6 +24,7 @@ class AuthenticateController extends Controller
 
     public function __construct()
     {
+
         // Only apply to a subset of methods.
         $this->middleware('api.auth', ['only' => ['logout', 'authenticatedUser', 'getToken']]);
         $this->middleware('auth.basic', ['only' => ['authenticatedUser']]);
