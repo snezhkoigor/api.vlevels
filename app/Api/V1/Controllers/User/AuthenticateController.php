@@ -42,11 +42,11 @@ class AuthenticateController extends Controller
         try {
             // attempt to verify the credentials and create a token for the user
             if (!$token = JWTAuth::attempt($credentials)) {
-                $this->response->errorUnauthorized('invalid_credentials');
+                $this->response->errorUnauthorized('Invalid credentials.');
             }
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
-            $this->response->errorInternal('could_not_create_token');
+            $this->response->errorInternal('Could not create token.');
         }
         // all good so return the token
         return $this->response->array(array('token' => $token));
@@ -94,12 +94,12 @@ class AuthenticateController extends Controller
         $token = JWTAuth::getToken();
 
         if (!$token) {
-            $this->response->errorMethodNotAllowed('Token not provided');
+            $this->response->errorMethodNotAllowed('Token not provided.');
         }
         try {
             $refreshedToken = JWTAuth::refresh($token);
         } catch (JWTException $e) {
-            $this->response->errorInternal('Not able to refresh Token');
+            $this->response->errorInternal('Not able to refresh Token.');
         }
 
         return $this->response->array(['token' => $refreshedToken]);
