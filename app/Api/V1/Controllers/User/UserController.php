@@ -155,6 +155,7 @@ class UserController extends BaseController
         if (!empty($request->code)) {
             $activation = Activation::where([
                 ['code', '=', $request->code],
+                ['expiration', '<', time()],
                 ['completed', '=', false],
             ])->first();
 
