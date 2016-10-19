@@ -155,19 +155,22 @@ class UserController extends BaseController
         if (!empty($request->code)) {
             $activation = Activation::where([
                 ['code', '=', $request->code],
-                ['expiration', '<', time()],
                 ['completed', '=', false],
             ])->first();
 
             if ($activation) {
-                $user = User::where('id', '=', $activation->user_id)
-                    ->first();
+                if (strtotime($activation->expiration) >= time()) {
+                    $user = User::where('id', '=', $activation->user_id)
+                        ->first();
 
-                if ($user) {
-                    Activation::complete($user, $request->code);
+                    if ($user) {
+                        Activation::complete($user, $request->code);
 
-                    return $this->response->item($user, new UserTransformer)->setStatusCode(200);
+                        return $this->response->item($user, new UserTransformer)->setStatusCode(200);
+                    }
                 }
+
+                $this->response->errorInternal('activation code has been expired.');
             }
         }
 
