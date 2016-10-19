@@ -219,7 +219,6 @@ return [
         Gerardojbaez\GeoData\GeoDataServiceProvider::class,
 
         // GEO API
-        Torann\GeoIP\GeoIPServiceProvider::class,
         PulkitJalan\GeoIP\GeoIPServiceProvider::class
     ],
 
