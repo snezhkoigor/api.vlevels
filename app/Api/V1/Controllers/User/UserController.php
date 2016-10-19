@@ -48,7 +48,7 @@ class UserController extends BaseController
 
     public function __construct()
     {
-        $this->middleware('api.auth')->only(array('create', 'all', 'show', 'refreshActivationCode', 'activation'));
+        $this->middleware('api.auth')->only(array('create', 'all', 'show'));
         $this->middleware('role:admin')->only(array('create', 'all'));
     }
 
