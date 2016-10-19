@@ -56,15 +56,6 @@ class User extends Authenticatable
         return $this->belongsTo('App\City');
     }
 
-    public static function getLocation()
-    {
-        $geoip = new GeoIP();
-
-        $lat = $geoip->getCity();
-
-        return $lat;
-    }
-
     public function mailActivationCode()
     {
         $activation = Activation::where([
