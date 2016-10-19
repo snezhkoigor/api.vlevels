@@ -170,7 +170,7 @@ class UserController extends BaseController
                     }
                 }
 
-                $this->response->errorInternal('activation code has been expired.');
+                $this->response->errorInternal('Activation code has been expired.');
             }
         }
 
