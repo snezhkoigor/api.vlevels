@@ -12,7 +12,9 @@
         "tymon/jwt-auth": "0.5.*",
         "zizaco/entrust": "5.2.x-dev",
         "predis/predis": "~1.1@dev",
-        "gerardojbaez/geodata": "0.*"
+        "gerardojbaez/geodata": "0.*",
+        "torann/geoip": "^1.0",
+        "pulkitjalan/geoip": "2.*"
 
     },
     "require-dev": {

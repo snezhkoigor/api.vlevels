@@ -217,6 +217,10 @@ return [
 
         // Countries
         Gerardojbaez\GeoData\GeoDataServiceProvider::class,
+
+        // GEO API
+        Torann\GeoIP\GeoIPServiceProvider::class,
+        PulkitJalan\GeoIP\GeoIPServiceProvider::class
     ],
 
     /*
@@ -269,6 +273,8 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
 
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
+
+        'GeoIP' => PulkitJalan\GeoIP\Facades\GeoIP::class
     ],
 
 ];

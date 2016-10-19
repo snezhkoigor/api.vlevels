@@ -130,6 +130,9 @@ class UserController extends BaseController
             // grab credentials from the request
             $credentials = $request->only('email', 'password');
 
+            var_dump(User::getLocation());die;
+
+
             $user = new User();
             $user->email = $request->email;
             $user->password = Hash::make($request->password);

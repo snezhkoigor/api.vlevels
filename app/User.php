@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Traits\EntrustUserWithPermissionsTrait;
 use Illuminate\Support\Facades\Mail;
 
+use PulkitJalan\GeoIP\GeoIP;
+
 class User extends Authenticatable
 {
     use Notifiable, EntrustUserWithPermissionsTrait;
@@ -52,6 +54,15 @@ class User extends Authenticatable
     public function city()
     {
         return $this->belongsTo('App\City');
+    }
+
+    public static function getLocation()
+    {
+        $geoip = new GeoIP();
+
+        $lat = $geoip->getCity();
+
+        return $lat;
     }
 
     public function mailActivationCode()
