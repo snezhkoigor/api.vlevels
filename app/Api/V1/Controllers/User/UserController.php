@@ -10,7 +10,7 @@ use App\Api\V1\Controllers\BaseController;
 use App\Transformers\User\UserTransformer;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
+use JWTAuth;
 use Validator;
 
 class UserController extends BaseController
@@ -48,7 +48,7 @@ class UserController extends BaseController
 
     public function __construct()
     {
-        $this->middleware('api.auth')->only(array('create', 'all', 'show'));
+        $this->middleware('api.auth')->only(array('create', 'all', 'show', 'refreshActivationCode', 'activation'));
         $this->middleware('role:admin')->only(array('create', 'all'));
     }
 
@@ -85,6 +85,7 @@ class UserController extends BaseController
         $perPage = 50;
         $currentPage = 1;
         $query = '';
+
         if ($request->has('currentPage')) {
             $currentPage = $request->get('currentPage');
         }
@@ -126,6 +127,9 @@ class UserController extends BaseController
         if ($validator->fails()) {
             $this->response->errorBadRequest($validator->messages());
         } else {
+            // grab credentials from the request
+            $credentials = $request->only('email', 'password');
+
             $user = new User();
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
@@ -133,31 +137,33 @@ class UserController extends BaseController
             $user->updated_at = time();
             $user->save();
 
-            $activation = Activation::add($user);
+            $role = Role::where('name', '=', 'client')->first();
 
-            Mail::send('emails.activation', array('code' => $activation->code), function($message) use ($user) {
-                $message->to($user->email)->subject('Верификация');
-            });
+            if ($role && $user) {
+                $user->attachRole($role);
+                $user->mailActivationCode();
 
-            return $this->response->item($user, new UserTransformer)->setStatusCode(200);
+                return $this->response->array(array('token' => JWTAuth::attempt($credentials)));
+            } else {
+                $this->response->errorInternal('Error by saving user.');
+            }
         }
     }
 
     public function activation(Request $request)
     {
-        if (empty($request->code)) {
+        if (!empty($request->code)) {
             $activation = Activation::where([
                 ['code', '=', $request->code],
-                ['complete', '=', false],
+                ['completed', '=', false],
             ])->first();
 
             if ($activation) {
-                $role = Role::where(['name', '=', 'client'])->first();
-                $user = User::where(['id', '=', $activation->user_id])->first();
+                $user = User::where('id', '=', $activation->user_id)
+                    ->first();
 
-                if ($role && $user) {
+                if ($user) {
                     Activation::complete($user, $request->code);
-                    $user->attachRole($role);
 
                     return $this->response->item($user, new UserTransformer)->setStatusCode(200);
                 }
@@ -165,6 +171,19 @@ class UserController extends BaseController
         }
 
         $this->response->errorInternal('Wrong activation code.');
+    }
+
+    public function refreshActivationCode()
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if ($user) {
+            $user->mailActivationCode();
+
+            return $this->response->item($user, new UserTransformer)->setStatusCode(200);
+        }
+
+        $this->response->errorInternal('No user.');
     }
 
     public function reminder(Request $request)

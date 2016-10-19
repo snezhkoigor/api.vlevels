@@ -13,6 +13,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Activation extends Model
 {
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
     public static function add(User $user)
     {
         self::remove($user);
@@ -43,12 +48,10 @@ class Activation extends Model
 
     public static function complete(User $user, $code)
     {
-        $activation = Activation::where(array(
-                array('code', '=', $code),
-                array('user_id', '=', $user->id)
-            ))
-            ->update(['completed', true])
-            ->touch();
+        $activation = Activation::where([
+                ['code', '=', $code],
+                ['user_id', '=', $user->id]
+            ])->first();
 
         if ($activation) {
             $activation->completed = true;
@@ -88,9 +91,9 @@ class Activation extends Model
 
     public static function removeExpired()
     {
-        return Activation::where(array(
-            array('expiration', '<', time()),
-            array('completed', '=', false)
-        ))->delete();
+        return Activation::where([
+            ['expiration', '<', time()],
+            ['completed', '=', false]
+        ])->delete();
     }
 }

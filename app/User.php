@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Traits\EntrustUserWithPermissionsTrait;
+use Illuminate\Support\Facades\Mail;
 
 class User extends Authenticatable
 {
@@ -40,7 +41,7 @@ class User extends Authenticatable
 
     public function activation()
     {
-        return $this->belongsTo('App\Activation');
+        return $this->hasOne('App\Activation');
     }
 
     public function region()
@@ -51,5 +52,24 @@ class User extends Authenticatable
     public function city()
     {
         return $this->belongsTo('App\City');
+    }
+
+    public function mailActivationCode()
+    {
+        $activation = Activation::where([
+            ['user_id', '=', $this->id],
+            ['completed', '=', false],
+            ['expiration', '<', time()],
+        ])->first();
+
+        if (empty($activation)) {
+            $activation = Activation::add($this);
+        }
+
+        Mail::send('emails.activation', array('code' => $activation->code), function ($message) {
+            $message->to($this->email)->subject('Верификация');
+        });
+
+        return $activation->code;
     }
 }

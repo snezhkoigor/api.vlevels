@@ -18,7 +18,8 @@ $api->version('v1',  ['middleware' => 'cors', 'namespace' => 'App\Api\V1\Control
     $api->post('user/{id}', 'User\UserController@show')->where('id', '[0-9]+');
     $api->post('user/create', 'User\UserController@create');
     $api->post('registration', 'User\UserController@registration');
-    $api->post('activation/{code}', 'User\UserController@activation');
+    $api->post('refreshVerificationCode', 'User\UserController@refreshActivationCode');
+    $api->post('activation', 'User\UserController@activation');
     $api->post('reminder/{code?}', 'User\UserController@reminder');
 
     $api->post('authenticate', 'User\AuthenticateController@authenticate');

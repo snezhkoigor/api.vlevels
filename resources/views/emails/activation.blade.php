@@ -4,7 +4,7 @@
     <tr>
         <td align="left" style="padding: 20px">
             <p style="text-align: left">
-                Вам необходимо активировать свой аккаунт. Перейдите по ссылке ниже:
+                Вам необходимо активировать свой аккаунт. Используйте код ниже:
             </p>
         </td>
     </tr>
@@ -13,7 +13,7 @@
     <tr>
         <td align="left" style="padding: 20px">
             <p style="text-align: left">
-                <a href="{{ config('app.url') . '/activation/' . $code }}" target="_blank">{{ config('app.url') . '/activation/' . $code }}</a>
+                {{ $code }}
             </p>
         </td>
     </tr>

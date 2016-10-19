@@ -10,8 +10,6 @@ namespace App\Api\V1\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Transformers\User\UserTransformer;
-use Dingo\Api\Auth\Auth;
-use Dingo\Api\Auth\Provider\JWT;
 use Dingo\Api\Routing\Helpers;
 use JWTAuth;
 use App\Http\Requests;
@@ -24,7 +22,6 @@ class AuthenticateController extends Controller
 
     public function __construct()
     {
-
         // Only apply to a subset of methods.
         $this->middleware('api.auth', ['only' => ['logout', 'authenticatedUser', 'getToken']]);
         $this->middleware('auth.basic', ['only' => ['authenticatedUser']]);
@@ -52,7 +49,7 @@ class AuthenticateController extends Controller
             $this->response->errorInternal('could_not_create_token');
         }
         // all good so return the token
-        return $this->response->array(['token' => $token]);
+        return $this->response->array(array('token' => $token));
     }
 
     /**
