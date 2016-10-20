@@ -143,9 +143,9 @@ class UserController extends BaseController
                 $user->attachRole($role);
                 $user->mailActivationCode();
 
-                return $this->response->array(array('token' => JWTAuth::attempt($credentials)));
+                return $this->response->array(['token' => JWTAuth::attempt($credentials)]);
             } else {
-                $this->response->errorBadRequest('Error by saving user.');
+                $this->response->errorBadRequest(json_encode(['System' => 'Error by saving user.']));
             }
         }
     }
@@ -170,7 +170,7 @@ class UserController extends BaseController
                     }
                 }
 
-                $this->response->errorBadRequest('Activation code has been expired.');
+                $this->response->errorBadRequest(json_encode(['Activation code' => 'Activation code has been expired.']));
             }
         }
 
@@ -187,7 +187,7 @@ class UserController extends BaseController
             return $this->response->item($user, new UserTransformer)->setStatusCode(200);
         }
 
-        $this->response->errorBadRequest('No user.');
+        $this->response->errorBadRequest(json_encode(['System' => 'No user.']));
     }
 
     public function reminder(Request $request)

@@ -36,20 +36,21 @@ class AuthenticateController extends Controller
      */
     public function authenticate(Request $request)
     {
+        $token = null;
         // grab credentials from the request
         $credentials = $request->only('email', 'password');
 
         try {
             // attempt to verify the credentials and create a token for the user
             if (!$token = JWTAuth::attempt($credentials)) {
-                $this->response->errorUnauthorized('Invalid credentials.');
+                $this->response->errorUnauthorized(json_encode(['System' => 'Invalid credentials.']));
             }
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
-            $this->response->errorBadRequest('Could not create token.');
+            $this->response->errorBadRequest(json_encode(['System' => 'Could not create token.']));
         }
         // all good so return the token
-        return $this->response->array(array('token' => $token));
+        return $this->response->array(['token' => $token]);
     }
 
     /**
@@ -91,15 +92,16 @@ class AuthenticateController extends Controller
      */
     public function getToken()
     {
+        $refreshedToken = null;
         $token = JWTAuth::getToken();
 
         if (!$token) {
-            $this->response->errorMethodNotAllowed('Token not provided.');
+            $this->response->errorMethodNotAllowed(json_encode(['System' => 'Token not provided.']));
         }
         try {
             $refreshedToken = JWTAuth::refresh($token);
         } catch (JWTException $e) {
-            $this->response->errorBadRequest('Not able to refresh Token.');
+            $this->response->errorBadRequest(json_encode(['System' => 'Not able to refresh Token.']));
         }
 
         return $this->response->array(['token' => $refreshedToken]);
