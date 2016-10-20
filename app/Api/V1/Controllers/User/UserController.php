@@ -117,6 +117,18 @@ class UserController extends BaseController
         $this->response->errorNotFound();
     }
 
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'email.required' => 'A e-mail is required',
+        ];
+    }
+
     public function registration(Request $request)
     {
         $validator = Validator::make($request->all(), [
