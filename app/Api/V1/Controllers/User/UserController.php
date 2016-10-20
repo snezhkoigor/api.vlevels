@@ -120,8 +120,8 @@ class UserController extends BaseController
     public function registration(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|unique:users|max:255',
-            'password' => 'required|max:255'
+            'email' => 'required|email|unique:users|max:100',
+            'password' => 'required|max:100'
         ]);
 
         if ($validator->fails()) {
