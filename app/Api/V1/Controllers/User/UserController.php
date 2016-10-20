@@ -33,18 +33,15 @@ class UserController extends BaseController
 //    // An unauthorized error with an optional message as the first parameter.
 //    return $this->response->errorUnauthorized();
 
-    public static $rules = [
-        'email' => 'required|unique:users|max:255',
-        'password' => 'required|max:255',
-        'role' => 'bail|required|exists:roles,id',
-    ];
+    public static $messages = [
+        'email.required' => 'E-mail is required.',
+        'email.email' => 'E-mail field has bad format.',
+        'email.unique' => 'We has this e-mail already.',
+        'email.max' => 'Max length of your e-mail must be 100 symbols.',
 
-//    public static $messages = [
-//        'same'    => 'The :attribute and :other must match.',
-//        'size'    => 'The :attribute must be exactly :size.',
-//        'between' => 'The :attribute must be between :min - :max.',
-//        'in'      => 'The :attribute must be one of the following types: :values',
-//    ];
+        'password.required' => 'Password is required.',
+        'password.max' => 'Max length of your password must be 100 symbols.'
+    ];
 
     public function __construct()
     {
@@ -117,24 +114,12 @@ class UserController extends BaseController
         $this->response->errorNotFound();
     }
 
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'email.required' => 'A e-mail is required',
-        ];
-    }
-
     public function registration(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users|max:100',
             'password' => 'required|max:100'
-        ], $this->messages());
+        ], self::$messages);
 
         if ($validator->fails()) {
             $this->response->errorBadRequest($validator->messages());
