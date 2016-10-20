@@ -145,7 +145,7 @@ class UserController extends BaseController
 
                 return $this->response->array(array('token' => JWTAuth::attempt($credentials)));
             } else {
-                $this->response->errorInternal('Error by saving user.');
+                $this->response->errorBadRequest('Error by saving user.');
             }
         }
     }
@@ -170,11 +170,11 @@ class UserController extends BaseController
                     }
                 }
 
-                $this->response->errorInternal('Activation code has been expired.');
+                $this->response->errorBadRequest('Activation code has been expired.');
             }
         }
 
-        $this->response->errorInternal('Wrong activation code.');
+        $this->response->errorBadRequest(['Activation code' => 'Wrong activation code.']);
     }
 
     public function refreshActivationCode()
@@ -187,7 +187,7 @@ class UserController extends BaseController
             return $this->response->item($user, new UserTransformer)->setStatusCode(200);
         }
 
-        $this->response->errorInternal('No user.');
+        $this->response->errorBadRequest('No user.');
     }
 
     public function reminder(Request $request)

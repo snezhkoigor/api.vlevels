@@ -46,7 +46,7 @@ class AuthenticateController extends Controller
             }
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
-            $this->response->errorInternal('Could not create token.');
+            $this->response->errorBadRequest('Could not create token.');
         }
         // all good so return the token
         return $this->response->array(array('token' => $token));
@@ -71,7 +71,7 @@ class AuthenticateController extends Controller
     {
         try {
             if (!$user = JWTAuth::parseToken()->authenticate()) {
-                $this->response->errorNotFound('user_not_found');
+                $this->response->errorBadRequest('User not found.');
             }
         } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
             return response()->json(['token_expired'], $e->getStatusCode());
@@ -99,7 +99,7 @@ class AuthenticateController extends Controller
         try {
             $refreshedToken = JWTAuth::refresh($token);
         } catch (JWTException $e) {
-            $this->response->errorInternal('Not able to refresh Token.');
+            $this->response->errorBadRequest('Not able to refresh Token.');
         }
 
         return $this->response->array(['token' => $refreshedToken]);
