@@ -174,7 +174,7 @@ class UserController extends BaseController
             }
         }
 
-        $this->response->errorBadRequest(['Activation code' => 'Wrong activation code.']);
+        $this->response->errorBadRequest(json_encode(['Activation code' => 'Wrong activation code.']));
     }
 
     public function refreshActivationCode()
