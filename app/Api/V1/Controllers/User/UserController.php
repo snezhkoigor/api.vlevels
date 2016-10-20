@@ -134,7 +134,7 @@ class UserController extends BaseController
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users|max:100',
             'password' => 'required|max:100'
-        ]);
+        ], $this->messages());
 
         if ($validator->fails()) {
             $this->response->errorBadRequest($validator->messages());
