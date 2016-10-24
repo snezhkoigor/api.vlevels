@@ -24,7 +24,7 @@ class AuthenticateController extends Controller
     {
         // Only apply to a subset of methods.
         $this->middleware('api.auth', ['only' => ['logout', 'authenticatedUser', 'getToken']]);
-        $this->middleware('auth.basic', ['only' => ['authenticatedUser']]);
+//        $this->middleware('auth.basic', ['only' => ['authenticatedUser']]);
     }
 
     /**
