@@ -92,7 +92,7 @@ class AuthenticateController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
 
         // the token is valid and we have found the user via the sub claim
-        return $user ? true : false;
+        return $this->response->array(['isAuthenticated' => $user ? true : false]);
     }
 
     /**
