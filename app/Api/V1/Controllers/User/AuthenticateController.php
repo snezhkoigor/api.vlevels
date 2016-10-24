@@ -76,11 +76,11 @@ class AuthenticateController extends Controller
                 $this->response->errorBadRequest(json_encode(['System' => ['User not found.']]));
             }
         } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-            return response()->json(['token_expired'], $e->getStatusCode());
+            return $this->response->array(['token_expired'], $e->getStatusCode());
         } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return response()->json(['token_invalid'], $e->getStatusCode());
+            return $this->response->array(['token_invalid'], $e->getStatusCode());
         } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
-            return response()->json(['token_absent'], $e->getStatusCode());
+            return $this->response->array(['token_absent'], $e->getStatusCode());
         }
 
         // the token is valid and we have found the user via the sub claim
@@ -89,10 +89,20 @@ class AuthenticateController extends Controller
 
     public function isAuthenticated()
     {
-        $user = JWTAuth::parseToken()->authenticate();
+        try {
+            if (!$user = JWTAuth::parseToken()->authenticate()) {
+                $this->response->array(['isAuthenticated' => false]);
+            }
+        } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+            return $this->response->array(['isAuthenticated' => false]);
+        } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+            return $this->response->array(['isAuthenticated' => false]);
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+            return $this->response->array(['isAuthenticated' => false]);
+        }
 
         // the token is valid and we have found the user via the sub claim
-        return $this->response->array(['isAuthenticated' => $user ? true : false]);
+        return $this->response->array(['isAuthenticated' => true]);
     }
 
     /**
