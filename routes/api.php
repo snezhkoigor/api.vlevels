@@ -26,6 +26,7 @@ $api->version('v1',  ['middleware' => 'cors', 'namespace' => 'App\Api\V1\Control
     $api->post('logout', 'User\AuthenticateController@logout');
     $api->post('token', 'User\AuthenticateController@getToken');
     $api->post('me', 'User\AuthenticateController@authenticatedUser');
+    $api->post('isAuthenticated', 'User\AuthenticateController@isAuthenticated');
 
     $api->post('roles', 'Role\RoleController@all');
     $api->post('role/create', 'Role\RoleController@create');

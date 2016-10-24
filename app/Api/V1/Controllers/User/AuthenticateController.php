@@ -63,6 +63,7 @@ class AuthenticateController extends Controller
     {
         JWTAuth::parseToken()->invalidate();
     }
+
     /**
      * Returns the authenticated user
      *
@@ -85,6 +86,15 @@ class AuthenticateController extends Controller
         // the token is valid and we have found the user via the sub claim
         return $this->response->item($user, new UserTransformer);
     }
+
+    public function isAuthenticated()
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+
+        // the token is valid and we have found the user via the sub claim
+        return $user ? true : false;
+    }
+
     /**
      * Refresh the token
      *
