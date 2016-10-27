@@ -10,27 +10,21 @@
     </style>
 
     <style type="text/css">
-        .name {
+        td.name {
             font-size: 16px;
             padding-top: 40px;
         }
 
-        .support {
+        td.support {
             font-size: 12px;
             margin-top: 25px;
         }
-    </style>
 
-    <style type="text/css" media="screen">
-        @media screen {
-            /*Thanks Outlook 2013! http://goo.gl/XLxpyl*/
-            td, h1, h2, h3 {
-                font-family: 'Droid Sans', 'Helvetica Neue', 'Arial', 'sans-serif' !important;
-            }
+        body, td, h1, h2, h3 {
+            font-family: 'Droid Sans', 'Helvetica Neue', 'Arial', 'sans-serif' !important;
         }
-    </style>
 
-    <style type="text/css" media="only screen and (max-width: 480px)">
+
         /* Mobile styles */
         @media only screen and (max-width: 480px) {
             img.logo {
@@ -38,14 +32,24 @@
                 height: 39px
             }
 
-            .name {
+            td.name {
                 font-size: 10px !important;
-                padding-top: 15px;
+                padding-top: 25px;
             }
 
-            .support {
+            td.support {
                 font-size: 10px;
-                margin-top: 15px;
+                margin-top: 20px;
+            }
+
+            img.mail {
+                width: 13px;
+                height: 13px;
+            }
+
+            img.website {
+                width: 13px;
+                height: 13px;
             }
 
             table[class="w320"] {
