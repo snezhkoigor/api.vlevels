@@ -34,7 +34,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Vlevels',
+    'name' => 'Volume Levels',
 
     /*
     |--------------------------------------------------------------------------
@@ -75,9 +75,9 @@ return [
 
     'url' => env('APP_URL', 'http://cabinet.vlevels.ru'),
 
-//    'website_url' => env('APP_WEBSITE_URL', 'http://vlevels.ru'),
-//
-//    'cabinet_url' => env('APP_CABINET_URL', 'http://cabinet.vlevels.ru'),
+    'supportEmail' => env('APP_URL', 'support@vlevels.ru'),
+
+    'websiteUrl' => env('APP_WEBSITE_URL', 'http://vlevels.ru'),
 
     /*
     |--------------------------------------------------------------------------

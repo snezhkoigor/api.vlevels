@@ -9,64 +9,22 @@
 
     <style type="text/css">
         @import url(http://fonts.googleapis.com/css?family=Droid+Sans);
+    </style>
 
-        /* Take care of image borders and formatting */
-
-        img {
-            max-width: 600px;
-            outline: none;
-            text-decoration: none;
-            -ms-interpolation-mode: bicubic;
+    <style type="text/css">
+        i.website {
+            background: url('http://cabinet.vlevels.ru/img/static/ico-site.png') 100% 100% no-repeat;
+            width: 16px;
+            height: 16px;
+            float: right;
         }
 
-        a {
-            text-decoration: none;
-            border: 0;
-            outline: none;
-            color: #7d6d6d;
+        i.email {
+            background: url('http://cabinet.vlevels.ru/img/static/ico-mail.png') 100% 100% no-repeat;
+            width: 16px;
+            height: 16px;
+            float: right;
         }
-
-        a img {
-            border: none;
-        }
-
-        /* General styling */
-
-        td, h1, h2, h3  {
-            font-family: Helvetica, Arial, sans-serif;
-            font-weight: 400;
-        }
-
-        td {
-            text-align: center;
-        }
-
-        body {
-            -webkit-font-smoothing:antialiased;
-            -webkit-text-size-adjust:none;
-            width: 100%;
-            height: 100%;
-            color: #37302d;
-            background: #ffffff;
-            font-size: 16px;
-        }
-
-        table {
-            border-collapse: collapse !important;
-        }
-
-        .headline {
-            color: #ffffff;
-            font-size: 36px;
-        }
-
-        .force-full-width {
-            width: 100% !important;
-        }
-
-
-
-
     </style>
 
     <style type="text/css" media="screen">
@@ -88,24 +46,42 @@
         }
     </style>
 </head>
-<body class="body" style="padding:0; margin:0; display:block; background:#ffffff; -webkit-text-size-adjust:none" bgcolor="#ffffff">
+<body class="body">
 <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%" >
     <tr>
-        <td align="center" valign="top" bgcolor="#ffffff"  width="100%">
+        <td align="center" valign="top" width="100%">
             <center>
                 <table style="margin: 0 auto;" cellpadding="0" cellspacing="0" width="600" class="w320">
                     <tr>
                         <td align="center" valign="top">
-                            <table style="margin: 0 auto;" cellpadding="0" cellspacing="0" width="100%" style="margin:0 auto;">
+                            <table background="http://cabinet.vlevels.ru/img/static/header-bg.jpg" style="margin: 0 auto;" cellpadding="0" cellspacing="0" width="100%" style="margin:0 auto;">
                                 <tr>
-                                    <td style="font-size: 30px; text-align:center;">
-                                        <br>
-                                        <img src="{{ config('app.url') . '/img/logo.png' }}" />
-                                        <br>
-                                        <br>
+                                    <td style="text-align:left; width: 50px">
+                                        <img style="padding: 20px 0px 15px 10px;"  src="{{ config('app.url') . '/img/static/logo.png' }}" />
+                                    </td>
+                                    <td style="color: white; font-size: 16px; padding-top: 40px;">
+                                        {{ config('app.name') }}
+                                    </td>
+
+                                    <td style="color: white; font-size: 12px; float: right; margin-top: 25px; margin-right: 5px;">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <i class="website"></i>
+                                                </td>
+                                                <td>
+                                                    <a style="color: white;" href="{{ config('app.websiteUrl') }}" target="_blank">{{ config('app.websiteUrl') }}</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="email"></i>
+                                                </td>
+                                                <td>
+                                                    <a style="color: white;" href="mailto:{{ config('app.supportEmail') }}">{{ config('app.supportEmail') }}</a>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
                                 </tr>
                             </table>
-                            <table style="margin: 0 auto;" cellpadding="0" cellspacing="0" width="100%" bgcolor="#4dbfbf">
-                                <tr>
-                                    <td>
