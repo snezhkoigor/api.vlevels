@@ -4,8 +4,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ config('app.name') }}</title>
-    <!-- Designed by https://github.com/kaytcat -->
-    <!-- Robot header image designed by Freepik.com -->
 
     <style type="text/css">
         @import url(http://fonts.googleapis.com/css?family=Droid+Sans);
