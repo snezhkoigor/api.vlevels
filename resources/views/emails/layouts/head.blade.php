@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ config('app.name') }}</title>
+    <title>{{config('app.name')}}</title>
 
     <style type="text/css">
         @import url(http://fonts.googleapis.com/css?family=Droid+Sans);
@@ -52,13 +52,13 @@
                 <table style="margin: 0 auto;" cellpadding="0" cellspacing="0" width="600" class="w320">
                     <tr>
                         <td align="center" valign="top">
-                            <table style="background: url('http://cabinet.vlevels.ru/img/static/header-bg.jpg'); margin: 0 auto;" cellpadding="0" cellspacing="0" width="100%">
+                            <table style="background: url('{{config('app.url') . '/img/static/header-bg.jpg'}}'); margin: 0 auto;" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td style="text-align:left; width: 50px">
-                                        <img style="padding: 20px 0px 15px 10px;"  src="{{ config('app.url') . '/img/static/logo.png' }}" />
+                                        <img style="padding: 20px 0px 15px 10px;"  src="{{config('app.url') . '/img/static/logo.png'}}" />
                                     </td>
                                     <td style="color: white; font-size: 16px; padding-top: 40px;">
-                                        {{ config('app.name') }}
+                                        {{config('app.name')}}
                                     </td>
 
                                     <td style="color: white; font-size: 12px; float: right; margin-top: 25px; margin-right: 5px;">
@@ -68,7 +68,7 @@
                                                     <i class="website"></i>
                                                 </td>
                                                 <td>
-                                                    <a style="color: white;" href="{{ config('app.websiteUrl') }}" target="_blank">{{ config('app.websiteUrl') }}</a>
+                                                    <a style="color: white;" href="{{config('app.websiteUrl')}}" target="_blank">{{config('app.websiteUrl')}}</a>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -76,7 +76,7 @@
                                                     <i class="email"></i>
                                                 </td>
                                                 <td>
-                                                    <a style="color: white;" href="mailto:{{ config('app.supportEmail') }}">{{ config('app.supportEmail') }}</a>
+                                                    <a style="color: white;" href="mailto:{{config('app.supportEmail')}}">{{config('app.supportEmail')}}</a>
                                                 </td>
                                             </tr>
                                         </table>

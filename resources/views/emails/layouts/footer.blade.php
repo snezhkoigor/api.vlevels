@@ -5,7 +5,7 @@
                                                 <tr>
                                                     <td align="left">
                                                         С уважением,<br/>
-                                                        команда {{ config('app.projectName') }}
+                                                        команда {{config('app.name')}}
                                                     </td>
                                                 </tr>
                                             </table>

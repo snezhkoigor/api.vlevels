@@ -75,7 +75,7 @@ return [
 
     'url' => env('APP_URL', 'http://cabinet.vlevels.ru'),
 
-    'supportEmail' => env('APP_URL', 'support@vlevels.ru'),
+    'supportEmail' => env('APP_SUPPORT_EMAIL', 'support@vlevels.ru'),
 
     'websiteUrl' => env('APP_WEBSITE_URL', 'http://vlevels.ru'),
 
