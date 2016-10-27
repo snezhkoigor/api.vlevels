@@ -52,7 +52,7 @@
                 <table style="margin: 0 auto;" cellpadding="0" cellspacing="0" width="600" class="w320">
                     <tr>
                         <td align="center" valign="top">
-                            <table style="background: url('{{config('app.url') . '/img/static/header-bg.jpg'}}'); margin: 0 auto;" cellpadding="0" cellspacing="0" width="100%">
+                            <table style="background: url('{{config('app.url') . '/img/static/header-bg.jpg'}}') 100% 100% no-repeat; margin: 0 auto;" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td style="text-align:left; width: 50px">
                                         <img style="padding: 20px 0px 15px 10px;"  src="{{config('app.url') . '/img/static/logo.png'}}" />
