@@ -34,7 +34,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Volume Levels',
+    'name' => env('APP_NAME', 'Volume Levels'),
 
     /*
     |--------------------------------------------------------------------------
