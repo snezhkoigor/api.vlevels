@@ -1,6 +1,6 @@
 @include('emails.layouts.head')
 
-<p class="h1">
+<p>
     Здравствуйте!
 </p>
 <p>
