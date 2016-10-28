@@ -20,7 +20,7 @@ $api->version('v1',  ['middleware' => 'cors', 'namespace' => 'App\Api\V1\Control
     $api->post('registration', 'User\UserController@registration');
     $api->post('refreshVerificationCode', 'User\UserController@refreshActivationCode');
     $api->post('activation', 'User\UserController@activation');
-    $api->post('reminder/{code?}', 'User\UserController@reminder');
+    $api->post('recovery', 'User\UserController@recoveryPassword');
 
     $api->post('authenticate', 'User\AuthenticateController@authenticate');
     $api->post('logout', 'User\AuthenticateController@logout');

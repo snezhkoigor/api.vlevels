@@ -37,10 +37,13 @@ class UserController extends BaseController
         'email.required' => 'E-mail is required.',
         'email.email' => 'E-mail field has bad format.',
         'email.unique' => 'We has this e-mail already.',
+        'email.exists' => 'No e-email.',
         'email.max' => 'Max length of your e-mail must be 100 symbols.',
 
         'password.required' => 'Password is required.',
-        'password.max' => 'Max length of your password must be 100 symbols.'
+        'password.max' => 'Max length of your password must be 100 symbols.',
+
+        'new.password.sent' => 'A new password has been sent to e-mail.'
     ];
 
     public function __construct()
@@ -147,6 +150,31 @@ class UserController extends BaseController
         }
     }
 
+    public function recoveryPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|max:100|exists:users',
+        ], self::$messages);
+
+        if ($validator->fails()) {
+            $this->response->errorBadRequest($validator->messages());
+        } else {
+            $user = User::where('email', '=', $request->email)
+                ->first();
+
+            if ($user) {
+                $password = str_random(6);
+                $user->mailRecoveryPassword($password);
+                $user->password = Hash::make($password);
+                $user->save();
+
+                return $this->response->array(['System' => [self::$messages['new.password.sent']]])->setStatusCode(200);
+            }
+
+            $this->response->errorBadRequest(json_encode(['System' => ['No user.']]));
+        }
+    }
+
     public function activation(Request $request)
     {
         if (!empty($request->code)) {
@@ -185,14 +213,5 @@ class UserController extends BaseController
         }
 
         $this->response->errorBadRequest(json_encode(['System' => ['No user.']]));
-    }
-
-    public function reminder(Request $request)
-    {
-        if (empty($request->code)) {
-            // меняем пароль по коду
-        } else {
-            // высылаем код для смены пароля по мейлу
-        }
     }
 }

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Traits\EntrustUserWithPermissionsTrait;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 use PulkitJalan\GeoIP\GeoIP;
@@ -35,7 +36,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Role');
     }
-    
+
     public function permissions()
     {
         return $this->belongsToMany('App\Permission');
@@ -56,6 +57,15 @@ class User extends Authenticatable
         return $this->belongsTo('App\City');
     }
 
+    public function mailRecoveryPassword($password)
+    {
+        Mail::send('emails.recovery', array('password' => $password), function ($message) {
+            $message->to($this->email)->subject('Восстановление пароля.');
+        });
+
+        return $password;
+    }
+
     public function mailActivationCode()
     {
         $activation = Activation::where([
@@ -69,7 +79,7 @@ class User extends Authenticatable
         }
 
         Mail::send('emails.activation', array('code' => $activation->code), function ($message) {
-            $message->to($this->email)->subject('Верификация');
+            $message->to($this->email)->subject('Верификация аккаунта.');
         });
 
         return $activation->code;
