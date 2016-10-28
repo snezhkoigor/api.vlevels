@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'id' => 1,
             'email' => 'i.s.sergeevich@yandex.ru',
-            'password' => Hash::make('florida840905'),
+            'password' => Hash::make('snezhko'),
 //            'permissions' => null,
             'first_name' => 'Игорь',
             'last_name' => 'Снежко',
