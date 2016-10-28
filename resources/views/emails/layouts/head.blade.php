@@ -14,22 +14,21 @@
                 <tr>
                     <td>
             <![endif]-->
-            <table align="center" style="margin: 0 auto; width: 100%; max-width: 600px; border-spacing: 0; font-family: sans-serif; color: #333333;">
+            <table class="outer" align="center" style="margin: 0 auto; width: 100%; max-width: 600px; border-spacing: 0; font-family: sans-serif; color: #333333;">
                 <tr>
-                    <td style="background: url('{{config('app.url') . '/img/static/header-bg.jpg'}}') 100% 100%;">
+                    <td class="head-background-image" style="background: url('{{config('app.url') . '/img/static/header-bg.jpg'}}') 100% 100%;">
                         <table width="100%" class="header" style="padding: 15px;">
                             <tr>
-                                <td style="width: 80px;">
-                                    <img src="{{config('app.url') . '/img/static/logo.png'}}" alt="" />
+                                <td class="project-logo" style="background: url('{{config('app.url') . '/img/static/logo.png'}}') 100% 100% no-repeat;  width: 155px; background-position: inherit;">
+                                    <div style="padding-left: 60px; padding-top: 28px; color: white; font-size: 14px;">
+                                        Volume Levels
+                                    </div>
                                 </td>
-                                <td style="color: white; font-size: 14px; padding-top: 25px;">
-                                    {{config('app.name')}}
-                                </td>
-                                <td style="font-size: 14px; float: right; padding-top: 7px;">
+                                <td class="project-links" style="font-size: 14px; float: right;">
                                     <table>
                                         <tr>
                                             <td style="padding: 3px;">
-                                                <img src="{{config('app.url') . '/img/static/ico-site.png'}}" style="float: right;" />
+                                                <img class="website" src="{{config('app.url') . '/img/static/ico-site.png'}}" style="float: right; padding-top: 3px;" />
                                             </td>
                                             <td style="padding: 3px;">
                                                 &nbsp;<a style="color: white;" href="{{config('app.websiteUrl')}}" target="_blank">{{config('app.websiteUrl')}}</a>
@@ -37,7 +36,7 @@
                                         </tr>
                                         <tr>
                                             <td style="padding: 3px;">
-                                                <img src="{{config('app.url') . '/img/static/ico-mail.png'}}" style="float: right;" />
+                                                <img class="mail" src="{{config('app.url') . '/img/static/ico-mail.png'}}" style="float: right; padding-top: 3px;" />
                                             </td>
                                             <td style="padding: 3px;">
                                                 &nbsp;<a style="color: white;" href="mailto:{{config('app.supportEmail')}}">{{config('app.supportEmail')}}</a>
