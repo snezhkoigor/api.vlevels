@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM', 'no-replay@vlevels.ru'),
-        'name' => env('MAIL_FROM_NAME', 'Vlevels'),
+        'name' => env('MAIL_FROM_NAME', 'Volume Levels'),
     ],
 
     /*
