@@ -75,9 +75,11 @@ return [
 
     'url' => env('APP_URL', 'http://cabinet.vlevels.ru'),
 
-    'supportEmail' => env('APP_SUPPORT_EMAIL', 'support@vlevels.ru'),
+    'support_email' => env('APP_SUPPORT_EMAIL', 'support@vlevels.ru'),
 
-    'websiteUrl' => env('APP_WEBSITE_URL', 'http://vlevels.ru'),
+    'website_url' => env('APP_WEBSITE_URL', 'http://vlevels.ru'),
+
+    'images_storage' =>  env('IMAGES_STORAGE', '/img/static/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -154,6 +156,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Password salt
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'password_salt' => env('PASSWORD_SALT', 'kGgy3'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
@@ -217,6 +228,9 @@ return [
 
         // Countries
         Gerardojbaez\GeoData\GeoDataServiceProvider::class,
+
+        // Sms
+        Softon\Sms\SmsServiceProvider::class
     ],
 
     /*
@@ -269,6 +283,8 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
 
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
+
+        'Sms' => Softon\Sms\Facades\Sms::class
     ],
 
 ];

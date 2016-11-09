@@ -13,8 +13,27 @@ use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
 {
+    private $hide_ids = false;
+
+    public function __construct($hide_ids = null)
+    {
+        if (!empty($hide_ids)) {
+            $this->hide_ids = (bool)$hide_ids;
+        }
+    }
+
     public function transform(User $user)
     {
+        $roles = $user->roles;
+        if ($this->hide_ids && !empty($user->roles)) {
+            foreach ($user->roles as $role) {
+                $roles[] = [
+                    'name' => $role['name'],
+                    'display_name' => $role['display_name']
+                ];
+            }
+        }
+
         return [
             'id' => (int)$user->id,
             'email' => $user->email,
@@ -27,7 +46,7 @@ class UserTransformer extends TransformerAbstract
             'balance' => (float)$user->balance,
             'birthday' => empty($user->birthday) ? null : date('Y-m-d', strtotime($user->birthday)),
             'comment' => $user->comment,
-            'role' => $user->roles, // пользователь пока может иметь только одну роль
+            'role' => $roles, // пользователь пока может иметь только одну роль
             'permissions' => $user->permissions,
             'activation' => $user->activation,
             'created_at' => empty($user->created_at) ? null : date('Y-m-d H:i:s', strtotime($user->created_at)),

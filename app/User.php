@@ -2,13 +2,14 @@
 
 namespace App;
 
+use App\Helpers\PhoneHelper;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Traits\EntrustUserWithPermissionsTrait;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-
-use PulkitJalan\GeoIP\GeoIP;
+use App\Funnel;
 
 class User extends Authenticatable
 {
@@ -20,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password'
+        'email', 'password'
     ];
 
     /**
@@ -57,9 +58,55 @@ class User extends Authenticatable
         return $this->belongsTo('App\City');
     }
 
+    public function getIndicatorKey()
+    {
+        $result = null;
+
+        $key = DB::connection('oldMysql')
+            ->table('tools_key')
+            ->where('_id_user', '=', $this->id)
+            ->value('_key');
+
+        if (empty($key)) {
+            $result = $this->insertIndicatorKey();
+        } else {
+            $result = $key;
+        }
+
+        return $result;
+    }
+
+    public function insertIndicatorKey()
+    {
+        $key = substr(md5($this->email . time()), 0, 10);
+
+        DB::connection('oldMysql')
+            ->table('tools_key')
+            ->insert(
+                [
+                    '_key' => $key,
+                    '_active' => 1,
+                    '_id_user' => $this->id,
+                    '_date' => time(),
+                    '_last_date' => time()
+                ]
+            );
+
+        return $key;
+    }
+
+    public function mailRegistration($password)
+    {
+        Mail::send('emails.registration', ['email' => $this->email, 'password' => $password, 'indicatorKey' => $this->getIndicatorKey()], function ($message) {
+            $message->to($this->email)->subject('Успешная регистрация.');
+        });
+
+        return true;
+    }
+
     public function mailRecoveryPassword($password)
     {
-        Mail::send('emails.recovery', array('password' => $password), function ($message) {
+        Mail::send('emails.recovery', ['password' => $password], function ($message) {
             $message->to($this->email)->subject('Восстановление пароля.');
         });
 
@@ -78,10 +125,35 @@ class User extends Authenticatable
             $activation = Activation::add($this);
         }
 
-        Mail::send('emails.activation', array('code' => $activation->code), function ($message) {
+        Mail::send('emails.activation', ['code' => $activation->code], function ($message) {
             $message->to($this->email)->subject('Верификация аккаунта.');
         });
 
         return $activation->code;
+    }
+
+    public function mailIndicatorDownload($id, $name, $phoneNumber)
+    {
+        Mail::send('emails.indicatorDownload', ['indicatorId' => $id, 'indicatorName' => $name, 'email' => $this->email, 'phoneNumber' => PhoneHelper::mask($phoneNumber)], function ($message) {
+            $message->to($this->email)->subject('[Скачать] Индикатор опционных уровней CME Info.');
+        });
+
+        Funnel::addFunnelItem($this->id, Funnel::FUNNEL_STEP_LP_CME_INFO);
+        Funnel::addFunnelItem($this->id, Funnel::FUNNEL_STEP_INDICATOR_DOWNLOAD, Funnel::FUNNEL_STEP_CME_INFO_ACTIVATED, date('Y-m-d H:i:s', strtotime('+5 HOURS')));
+        Funnel::addFunnelItem($this->id, Funnel::FUNNEL_STEP_INDICATOR_DOWNLOAD, Funnel::FUNNEL_STEP_CME_INFO_NOT_ACTIVATED, date('Y-m-d H:i:s', strtotime('+5 HOURS')));
+        Funnel::addFunnelItem($this->id, Funnel::FUNNEL_STEP_LP_PAYMENT);
+
+        return true;
+    }
+
+    public function mailHello()
+    {
+        Mail::send('emails.hello', [], function ($message) {
+            $message->to($this->email)->subject('[Administrator] Давайте знакомиться.');
+        });
+
+        Funnel::addFunnelItem($this->id, Funnel::FUNNEL_STEP_HELLO);
+
+        return true;
     }
 }

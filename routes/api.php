@@ -40,3 +40,7 @@ $api->version('v1',  ['middleware' => 'cors', 'namespace' => 'App\Api\V1\Control
     $api->post('permission/store/{id}', 'Permission\PermissionController@store')->where('id', '[0-9]+');
     $api->post('permission/delete/{id}', 'Permission\PermissionController@delete')->where('id', '[0-9]+');
 });
+
+$api->version('lp',  ['middleware' => 'cors', 'namespace' => 'App\Api\lp\Controllers'], function ($api) {
+    $api->post('registration', 'CmeInfoController@registration');
+});

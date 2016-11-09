@@ -17,7 +17,9 @@
         'footer-hr' => 'border: none; color: #b1aeae; background-color: #b1aeae; height: 1px; margin-top: 10px; margin-bottom: 10px;',
         'footer-hr-td' => 'text-align: left; padding: 10px;',
         'footer-unsubscribe-td' => 'text-align: left; padding: 10px; font-size: 13px;',
-        'footer-unsubscribe-a' => 'color: #ee6a56; text-decoration: underline;'
+        'footer-unsubscribe-a' => 'color: #ee6a56; text-decoration: underline;',
+        'website-url' => 'color: white;',
+        'support-email' => 'color: white;'
     ];
 ?>
 
@@ -51,18 +53,18 @@
                                         <table>
                                             <tr>
                                                 <td style="{{$style['project-links-td']}}">
-                                                    <img class="website" src="{{config('app.url') . '/img/static/ico-site.png'}}" style="{{$style['project-links-img']}}" />
+                                                    <img class="website" src="{{config('app.url') . config('app.images_storage') . 'ico-site.png'}}" style="{{$style['project-links-img']}}" />
                                                 </td>
                                                 <td style="{{$style['project-links-td']}}">
-                                                    &nbsp;<a style="color: white;" href="{{config('app.websiteUrl')}}" target="_blank">{{config('app.websiteUrl')}}</a>
+                                                    &nbsp;<a style="{{$style['website-url']}}" href="{{config('app.website_url')}}" target="_blank">{{config('app.website_url')}}</a>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="{{$style['project-links-td']}}">
-                                                    <img class="mail" src="{{config('app.url') . '/img/static/ico-mail.png'}}" style="{{$style['project-links-img']}}" />
+                                                    <img class="mail" src="{{config('app.url') . config('app.images_storage') . 'ico-mail.png'}}" style="{{$style['project-links-img']}}" />
                                                 </td>
                                                 <td style="{{$style['project-links-td']}}">
-                                                    &nbsp;<a style="color: white;" href="mailto:{{config('app.supportEmail')}}">{{config('app.supportEmail')}}</a>
+                                                    &nbsp;<a style="{{$style['support-email']}}" href="mailto:{{config('app.support_email')}}">{{config('app.support_email')}}</a>
                                                 </td>
                                             </tr>
                                         </table>
@@ -92,7 +94,7 @@
                                 </tr>
                                 <tr>
                                     <td style="{{$style['footer-unsubscribe-td']}}">
-                                        Вы можете отписаться от рассылки по <a href="#" style="{{$style['footer-unsubscribe-a']}}">ссылке</a>
+                                        Вы можете отписаться от рассылки по <a href="{{config('app.url') . '/information.php'}}" style="{{$style['footer-unsubscribe-a']}}">ссылке</a>
                                     </td>
                                 </tr>
                             </table>

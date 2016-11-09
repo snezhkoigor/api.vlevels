@@ -12,8 +12,8 @@
         "tymon/jwt-auth": "0.5.*",
         "zizaco/entrust": "5.2.x-dev",
         "predis/predis": "~1.1@dev",
-        "gerardojbaez/geodata": "0.*"
-
+        "gerardojbaez/geodata": "0.*",
+        "softon/sms": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
