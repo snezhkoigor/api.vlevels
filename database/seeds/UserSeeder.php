@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use \Illuminate\Support\Facades\Hash;
-use \App\User;
-use \App\Role;
+use \App\Classes\User\User;
+use \App\Classes\User\Role;
 use \Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder

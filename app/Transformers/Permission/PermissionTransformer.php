@@ -9,7 +9,7 @@
 namespace App\Transformers\Permission;
 
 
-use App\Permission;
+use App\Classes\User\Permission;
 use League\Fractal\TransformerAbstract;
 
 class PermissionTransformer extends TransformerAbstract
