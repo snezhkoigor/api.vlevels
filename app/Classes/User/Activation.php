@@ -2,11 +2,11 @@
 /**
  * Created by PhpStorm.
  * User: dev
- * Date: 04.10.16
- * Time: 15:27
+ * Date: 14.11.16
+ * Time: 12:45
  */
 
-namespace App;
+namespace App\Classes\User;
 
 
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +15,7 @@ class Activation extends Model
 {
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Classes\User');
     }
 
     public static function add(User $user)
@@ -49,9 +49,9 @@ class Activation extends Model
     public static function complete(User $user, $code)
     {
         $activation = Activation::where([
-                ['code', '=', $code],
-                ['user_id', '=', $user->id]
-            ])->first();
+            ['code', '=', $code],
+            ['user_id', '=', $user->id]
+        ])->first();
 
         if ($activation) {
             $activation->completed = true;

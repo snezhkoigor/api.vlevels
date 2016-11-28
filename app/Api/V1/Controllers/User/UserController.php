@@ -2,10 +2,10 @@
 
 namespace App\Api\V1\Controllers\User;
 
-use App\Activation;
-use App\Role;
+use App\Classes\User\Activation;
+use App\Classes\User\Role;
 use Illuminate\Http\Request;
-use App\User;
+use App\Classes\User\User;
 use App\Api\V1\Controllers\BaseController;
 use App\Transformers\User\UserTransformer;
 use Illuminate\Pagination\Paginator;

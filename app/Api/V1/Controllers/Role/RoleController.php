@@ -8,7 +8,7 @@
 
 namespace App\Api\V1\Controllers\Role;
 
-use App\Role;
+use App\Classes\User\Role;
 use App\Transformers\Role\RoleTransformer;
 use Illuminate\Http\Request;
 use App\Api\V1\Controllers\BaseController;

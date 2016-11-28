@@ -10,7 +10,7 @@ namespace App\Api\lp\Controllers;
 
 use Illuminate\Http\Request;
 use Validator;
-use App\User;
+use App\Classes\User\User;
 use Softon\Sms\Facades\Sms;
 
 class CmeInfoController extends BaseController
@@ -63,7 +63,8 @@ class CmeInfoController extends BaseController
             $user->mailHello();
 
             return $this->response->array([
-                'sms_answer' => $answer
+                'sms_answer' => $answer,
+                'user' => $user->id
             ]);
         }
     }

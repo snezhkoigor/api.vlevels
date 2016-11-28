@@ -1,6 +1,12 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: dev
+ * Date: 14.11.16
+ * Time: 12:43
+ */
 
-namespace App;
+namespace App\Classes\User;
 
 use App\Helpers\PhoneHelper;
 use Illuminate\Notifications\Notifiable;
@@ -9,7 +15,7 @@ use App\Traits\EntrustUserWithPermissionsTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use App\Funnel;
+use App\Classes\Funnel\Funnel;
 
 class User extends Authenticatable
 {
@@ -35,27 +41,32 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany('App\Role');
+        return $this->belongsToMany('App\Classes\User\Role');
     }
 
     public function permissions()
     {
-        return $this->belongsToMany('App\Permission');
+        return $this->belongsToMany('App\Classes\User\Permission');
     }
 
     public function activation()
     {
-        return $this->hasOne('App\Activation');
+        return $this->hasOne('App\Classes\User\Activation');
     }
 
     public function region()
     {
-        return $this->belongsTo('App\City');
+        return $this->belongsTo('App\Classes\Geo\City');
     }
 
     public function city()
     {
-        return $this->belongsTo('App\City');
+        return $this->belongsTo('App\Classes\Geo\City');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany('App\Classes\User\Invoice');
     }
 
     public function getIndicatorKey()
@@ -147,6 +158,17 @@ class User extends Authenticatable
     }
 
     public function mailHello()
+    {
+        Mail::send('emails.hello', [], function ($message) {
+            $message->to($this->email)->subject('[Administrator] Давайте знакомиться.');
+        });
+
+        Funnel::addFunnelItem($this->id, Funnel::FUNNEL_STEP_HELLO);
+
+        return true;
+    }
+
+    public function mailBill()
     {
         Mail::send('emails.hello', [], function ($message) {
             $message->to($this->email)->subject('[Administrator] Давайте знакомиться.');

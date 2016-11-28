@@ -2,11 +2,12 @@
 /**
  * Created by PhpStorm.
  * User: dev
- * Date: 04.10.16
- * Time: 15:27
+ * Date: 14.11.16
+ * Time: 12:52
  */
 
-namespace App;
+namespace App\Classes\User;
+
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;

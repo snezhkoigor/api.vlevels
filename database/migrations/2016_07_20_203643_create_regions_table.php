@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCountriesTable extends Migration
+class CreateRegionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,18 @@ class CreateCountriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('countries', function(Blueprint $table)
+        Schema::create('regions', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->char('code', 2)->unique();
+            $table->char('country_code', 2);
             $table->boolean('active')->default(1);
             $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('slug');
+
+            $table->foreign('country_code')->references('code')->on('countries')->onDelete('cascade');
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -28,6 +31,6 @@ class CreateCountriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('countries');
+        Schema::drop('regions');
     }
 }

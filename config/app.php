@@ -230,7 +230,10 @@ return [
         Gerardojbaez\GeoData\GeoDataServiceProvider::class,
 
         // Sms
-        Softon\Sms\SmsServiceProvider::class
+        Softon\Sms\SmsServiceProvider::class,
+
+        // Payments
+        Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class
     ],
 
     /*
@@ -281,10 +284,9 @@ return [
 
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
-
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
-
-        'Sms' => Softon\Sms\Facades\Sms::class
+        'Sms' => Softon\Sms\Facades\Sms::class,
+        'Omnipay' => Ignited\LaravelOmnipay\Facades\OmnipayFacade::class
     ],
 
 ];

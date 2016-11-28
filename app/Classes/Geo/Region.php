@@ -2,11 +2,12 @@
 /**
  * Created by PhpStorm.
  * User: dev
- * Date: 05.10.16
- * Time: 19:19
+ * Date: 14.11.16
+ * Time: 12:47
  */
 
-namespace App;
+namespace App\Classes\Geo;
+
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -2,7 +2,7 @@
 
 namespace App\Api\V1\Controllers\Permission;
 
-use App\Permission;
+use App\Classes\User\Permission;
 use App\Transformers\Permission\PermissionTransformer;
 use Illuminate\Http\Request;
 use App\Api\V1\Controllers\BaseController;

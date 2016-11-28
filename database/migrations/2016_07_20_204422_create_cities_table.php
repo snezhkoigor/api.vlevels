@@ -20,10 +20,12 @@ class CreateCitiesTable extends Migration
             $table->boolean('active')->default(1);
             $table->string('name');
             $table->string('slug');
+
             $table->foreign('country_code')->references('code')->on('countries')->onDelete('cascade');
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
         });
     }
+
     /**
      * Reverse the migrations.
      *
