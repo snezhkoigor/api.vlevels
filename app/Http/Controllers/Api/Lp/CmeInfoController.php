@@ -6,12 +6,13 @@
  * Time: 10:26
  */
 
-namespace App\Api\lp\Controllers;
+namespace App\Http\Api\Lp\Controllers;
 
 use Illuminate\Http\Request;
 use Validator;
 use App\Classes\User\User;
 use Softon\Sms\Facades\Sms;
+use Illuminate\Routing\Controller as BaseController;
 
 class CmeInfoController extends BaseController
 {

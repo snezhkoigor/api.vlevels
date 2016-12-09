@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Api\V1\Controllers\User;
+namespace App\Http\Api\V1\Controllers\User;
 
 use App\Classes\User\Activation;
 use App\Classes\User\Role;
 use Illuminate\Http\Request;
 use App\Classes\User\User;
-use App\Api\V1\Controllers\BaseController;
+use Illuminate\Routing\Controller as BaseController;
 use App\Transformers\User\UserTransformer;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;

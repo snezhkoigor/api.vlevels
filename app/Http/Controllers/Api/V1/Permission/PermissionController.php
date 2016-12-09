@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Api\V1\Controllers\Permission;
+namespace App\Http\Api\V1\Controllers\Permission;
 
 use App\Classes\User\Permission;
 use App\Transformers\Permission\PermissionTransformer;
 use Illuminate\Http\Request;
-use App\Api\V1\Controllers\BaseController;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Validator;
 

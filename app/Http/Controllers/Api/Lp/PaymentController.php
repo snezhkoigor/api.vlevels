@@ -6,12 +6,13 @@
  * Time: 10:26
  */
 
-namespace App\Api\lp\Controllers;
+namespace App\Http\Api\Lp\Controllers;
 
 use App\Classes\Funnel\Funnel;
 use Illuminate\Http\Request;
 use Validator;
 use Omnipay\Omnipay;
+use Illuminate\Routing\Controller as BaseController;
 
 class PaymentController extends BaseController
 {

@@ -6,7 +6,7 @@
  * Time: 18:01
  */
 
-namespace App\Api\V1\Controllers\User;
+namespace App\Http\Api\V1\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Transformers\User\UserTransformer;

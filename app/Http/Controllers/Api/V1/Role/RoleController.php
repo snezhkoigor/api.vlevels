@@ -6,12 +6,12 @@
  * Time: 18:28
  */
 
-namespace App\Api\V1\Controllers\Role;
+namespace App\Http\Api\V1\Controllers\Role;
 
 use App\Classes\User\Role;
 use App\Transformers\Role\RoleTransformer;
 use Illuminate\Http\Request;
-use App\Api\V1\Controllers\BaseController;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Validator;
 

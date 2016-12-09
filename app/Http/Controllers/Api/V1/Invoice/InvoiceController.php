@@ -6,10 +6,10 @@
  * Time: 13:28
  */
 
-namespace App\Api\V1\Controllers\Invoice;
+namespace App\Http\Api\V1\Controllers\Invoice;
 
 
-use App\Api\V1\Controllers\BaseController;
+use Illuminate\Routing\Controller as BaseController;
 use App\Classes\Invoice\Invoice;
 use Illuminate\Http\Request;
 use Validator;
