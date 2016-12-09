@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'supportsCredentials' => false,
+    'supportsCredentials' => true,
     'allowedOrigins' => ['*'],
     'allowedHeaders' => ['Content-Type', 'X-Auth-Token', 'Origin', 'X-Requested-With', 'Accept', 'Authorization'], // ex : ['Content-Type', 'Accept']
     'allowedMethods' => ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // ex: ['GET', 'POST', 'PUT',  'DELETE']
