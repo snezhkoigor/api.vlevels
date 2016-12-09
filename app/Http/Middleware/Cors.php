@@ -21,12 +21,9 @@ class Cors
      */
     public function handle($request, Closure $next)
     {
-        if ($request->isMethod('options')) {
-            return response('', 200)
-                ->header('Access-Control-Allow-Origin', '*')
-                ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-                ->header('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Origin, X-Requested-With, Accept, Authorization'); // Add any required headers here
-        }
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, X-Requested-With, Accept, Authorization');
 
         return $next($request);
     }
