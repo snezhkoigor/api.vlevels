@@ -6,7 +6,7 @@
  * Time: 13:28
  */
 
-namespace App\Http\Api\V1\Controllers\Invoice;
+namespace App\Http\Controllers\Api\V1\Invoice;
 
 
 use Illuminate\Routing\Controller as BaseController;

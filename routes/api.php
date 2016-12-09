@@ -13,7 +13,7 @@
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1',  ['middleware' => 'cors', 'namespace' => 'App\Http\Api\V1\Controllers'], function ($api) {
+$api->version('v1',  ['middleware' => 'cors', 'namespace' => 'App\Http\Controllers\Api\V1'], function ($api) {
     $api->post('users', 'User\UserController@all');
     $api->post('user/{id}', 'User\UserController@show')->where('id', '[0-9]+');
     $api->post('user/create', 'User\UserController@create');
@@ -43,6 +43,6 @@ $api->version('v1',  ['middleware' => 'cors', 'namespace' => 'App\Http\Api\V1\Co
     $api->post('invoice/add', 'User\UserController@create');
 });
 
-$api->version('lp',  ['middleware' => 'cors', 'namespace' => 'App\Http\Api\Lp\Controllers'], function ($api) {
+$api->version('lp',  ['middleware' => 'cors', 'namespace' => 'App\Http\Controllers\Api\Lp'], function ($api) {
     $api->post('registration', 'CmeInfoController@registration');
 });

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Api\V1\Controllers\User;
+namespace App\Http\Controllers\Api\V1\User;
 
 use App\Classes\User\Activation;
 use App\Classes\User\Role;

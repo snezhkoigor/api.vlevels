@@ -6,7 +6,7 @@
  * Time: 18:28
  */
 
-namespace App\Http\Api\V1\Controllers\Role;
+namespace App\Http\Controllers\Api\V1\Role;
 
 use App\Classes\User\Role;
 use App\Transformers\Role\RoleTransformer;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Api\V1\Controllers\Permission;
+namespace App\Http\Controllers\Api\V1\Permission;
 
 use App\Classes\User\Permission;
 use App\Transformers\Permission\PermissionTransformer;

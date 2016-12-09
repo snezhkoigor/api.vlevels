@@ -6,7 +6,7 @@
  * Time: 10:26
  */
 
-namespace App\Http\Api\Lp\Controllers;
+namespace App\Http\Controllers\Api\Lp;
 
 use App\Classes\Funnel\Funnel;
 use Illuminate\Http\Request;
