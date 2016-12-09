@@ -227,10 +227,7 @@ return [
         Softon\Sms\SmsServiceProvider::class,
 
         // Payments
-        Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class,
-
-        // Cors for API
-        Barryvdh\Cors\ServiceProvider::class,
+        Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class
     ],
 
     /*

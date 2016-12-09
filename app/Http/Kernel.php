@@ -57,7 +57,7 @@ class Kernel extends HttpKernel
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
 
-        'cors' => \Barryvdh\Cors\HandleCors::class
+        'cors' => \App\Http\Middleware\Cors::class
 
 //        'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
 //        'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
