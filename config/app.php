@@ -203,12 +203,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
-         * Package Service Providers...
-         */
-
-        //
-
-        /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
@@ -233,7 +227,10 @@ return [
         Softon\Sms\SmsServiceProvider::class,
 
         // Payments
-        Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class
+        Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class,
+
+        // Cors for API
+        Barryvdh\Cors\ServiceProvider::class,
     ],
 
     /*

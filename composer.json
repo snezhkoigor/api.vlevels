@@ -16,7 +16,8 @@
         "softon/sms": "dev-master",
         "ignited/laravel-omnipay": "2.2.*",
         "omnipay/ym": "~1.0",
-        "yandexmoney/omnipay": "^1.0"
+        "yandexmoney/omnipay": "^1.0",
+        "barryvdh/laravel-cors": "^0.8.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
