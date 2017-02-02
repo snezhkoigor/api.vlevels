@@ -17,6 +17,7 @@ use Softon\Sms\Facades\Sms;
 class CmeInfoController extends Controller
 {
     protected $indicatorId = 7;
+    protected $tariffId = 10;
 
     public static $messages = [
         'email.required' => 'E-mail обязательное поле.',
@@ -50,6 +51,7 @@ class CmeInfoController extends Controller
                 $user->reg_date = time();
                 $user->last_visit = time();
                 $user->role = 0;
+                $user->active_tariff = $this->tariffId;
                 $user->active_date = time();
                 $user->password = md5($password . config('app.password_salt'));
                 $user->utm_source = !empty($_COOKIE["utm_source"]) ? $_COOKIE["utm_source"] : null;
