@@ -9,12 +9,12 @@
 namespace App\Http\Controllers\Api\V1\Invoice;
 
 
-use Illuminate\Routing\Controller as BaseController;
+use App\Http\Controllers\Controller;
 use App\Classes\Invoice\Invoice;
 use Illuminate\Http\Request;
 use Validator;
 
-class InvoiceController extends BaseController
+class InvoiceController extends Controller
 {
     public static $messages = [
         'user_id.required' => 'No user in request.',

@@ -9,12 +9,12 @@
 namespace App\Http\Controllers\Api\Lp;
 
 use App\Classes\Funnel\Funnel;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use Omnipay\Omnipay;
-use Illuminate\Routing\Controller as BaseController;
 
-class PaymentController extends BaseController
+class PaymentController extends Controller
 {
     public static $messages = [
         'id.required' => 'Не передан пользователь.',

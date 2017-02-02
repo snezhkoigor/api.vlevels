@@ -8,13 +8,13 @@
 
 namespace App\Http\Controllers\Api\Lp;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use App\Classes\User\User;
 use Softon\Sms\Facades\Sms;
-use Illuminate\Routing\Controller as BaseController;
 
-class CmeInfoController extends BaseController
+class CmeInfoController extends Controller
 {
     protected $indicatorId = 7;
 

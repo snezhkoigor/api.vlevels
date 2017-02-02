@@ -9,13 +9,13 @@
 namespace App\Http\Controllers\Api\V1\Role;
 
 use App\Classes\User\Role;
+use App\Http\Controllers\Controller;
 use App\Transformers\Role\RoleTransformer;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Validator;
 
-class RoleController extends BaseController
+class RoleController extends Controller
 {
     use ValidatesRequests;
 

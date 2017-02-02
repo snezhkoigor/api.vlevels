@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Api\V1\User;
 
 use App\Classes\User\Activation;
 use App\Classes\User\Role;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Classes\User\User;
-use Illuminate\Routing\Controller as BaseController;
 use App\Transformers\User\UserTransformer;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
 use JWTAuth;
 use Validator;
 
-class UserController extends BaseController
+class UserController extends Controller
 {
 //    // A generic error with custom message and status code.
 //    return $this->response->error('This is an error.', 404);

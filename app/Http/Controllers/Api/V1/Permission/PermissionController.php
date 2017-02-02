@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\V1\Permission;
 
 use App\Classes\User\Permission;
+use App\Http\Controllers\Controller;
 use App\Transformers\Permission\PermissionTransformer;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Validator;
 
-class PermissionController extends BaseController
+class PermissionController extends Controller
 {
     use ValidatesRequests;
 
