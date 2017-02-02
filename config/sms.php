@@ -12,7 +12,7 @@ return [
 
     'countryCode' => '+7',
 
-    'gateway' => 'custom',                     // Replace with the name of appropriate gateway
+    'gateway' => 'Custom',                     // Replace with the name of appropriate gateway
 
     'view'    => 'File',
 
