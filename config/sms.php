@@ -12,7 +12,7 @@ return [
 
     'countryCode' => '+7',
 
-    'gateway' => 'custom',                     // Replace with the name of appropriate gateway
+    'gateway' => 'Custom',                     // Replace with the name of appropriate gateway
 
     'view'    => 'File',
 
@@ -52,7 +52,7 @@ return [
         'gwid'  => '1',                     // 1 - Promotional & 2 - Transactional Route
     ],
 
-    'custom' => [                           // Can be used for any gateway
+    'Custom' => [                           // Can be used for any gateway
         'url' => 'http://smsc.ru/sys/send.php?',                        // Gateway Endpoint
         'params' => [                       // Parameters to be included in the request
             'send_to_name' => 'phones',           // Name of the field of recipient number
