@@ -96,10 +96,10 @@ class User extends Authenticatable
             ->insert(
                 [
                     '_key' => $key,
-                    '_active' => 1,
+                    '_active' => 0,
                     '_id_user' => $this->id,
-                    '_date' => time(),
-                    '_last_date' => time()
+                    '_date' => 0,
+                    '_last_date' => 0
                 ]
             );
 
