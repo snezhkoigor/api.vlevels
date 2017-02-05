@@ -54,7 +54,7 @@ class Funnel
                     'email' => $user->email,
                     'invoice' => $invoice->_invoce,
                     'tariff' => $tariff,
-                    'product' => empty($tariff) ? '11 скриптов и индикаторов' : $tariff->name,
+                    'product' => empty($tariff) || $tariff == 0 ? '11 скриптов и индикаторов' : $tariff->name,
                     'pay_till' => date('d.m.Y H:i', strtotime('+3 HOUR', $invoice->_date))
                 ];
             }
