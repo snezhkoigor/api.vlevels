@@ -79,16 +79,16 @@ class Funnel
                 ->insertGetId(
                     [
                         '_id_user' => $userId,
-                        '_request' => null,
+                        '_request' => '',
                         '_invoce' => $invoice,
                         '_date' => time(),
                         '_tariff' => $tariff,
                         '_payment_type' => $paymentType,
-                        '_payer' => null,
-                        '_payee' => null,
+                        '_payer' => '',
+                        '_payee' => '',
                         '_amount' => $amount,
                         '_fee' => $fee,
-                        '_batch' => null,
+                        '_batch' => '',
                         '_cancel' => 0,
                         '_executed' => 0,
                         '_comment' => $comment
