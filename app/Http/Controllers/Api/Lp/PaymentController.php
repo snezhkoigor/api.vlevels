@@ -43,6 +43,7 @@ class PaymentController extends Controller
 
                 $result = [
                     'invoiceId' => $invoice->_invoce,
+                    'amount' => $invoice->_amount,
                     'email' => $user->email,
                     'phone' => $user->phone,
                     'name' => $user->name,
