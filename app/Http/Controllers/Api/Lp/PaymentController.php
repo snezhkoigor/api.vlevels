@@ -32,7 +32,7 @@ class PaymentController extends Controller
         } else {
             $invoice = DB::connection('oldMysql')
                 ->table('payment')
-                ->where('id', '=', $request->invoiceId)
+                ->where('_id', '=', $request->invoiceId)
                 ->first();
 
             if ($invoice) {
