@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Api\Lp;
 use App\Classes\Funnel\Funnel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use Omnipay\Omnipay;
 
