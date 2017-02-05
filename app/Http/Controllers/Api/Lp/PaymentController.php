@@ -45,7 +45,12 @@ class PaymentController extends Controller
         if ($validator->fails()) {
             $this->response->errorBadRequest($validator->messages());
         } else {
-            $invoice = Funnel::addPayment($request->id, $request->amount, 0, 0, '', '11 скриптов и индикаторов');
+            $user = DB::connection('oldMysql')
+                ->table('users')
+                ->where('id', '=', $request->id)
+                ->first();
+
+            $invoice = Funnel::addPayment($request->id, $request->amount, 0, 0, '', $user->email . ':0:' . '11 скриптов и индикаторов');
 
             return $this->response->array([
                 'invoice' => $invoice
