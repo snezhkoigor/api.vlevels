@@ -22,6 +22,19 @@ class PaymentController extends Controller
         'amount.required' => 'Необходимо указать стоимость.',
     ];
 
+    public function get(Request $request)
+    {
+        if (empty($request->invoiceId)) {
+            $this->response->errorBadRequest();
+        } else {
+            $invoice = Funnel::addPayment($request->userId, $request->amount, null, $request->tariff, null, $request->comment);
+
+            return $this->response->array([
+                'invoice' => $invoice
+            ]);
+        }
+    }
+
     public function add(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -32,7 +45,7 @@ class PaymentController extends Controller
         if ($validator->fails()) {
             $this->response->errorBadRequest($validator->messages());
         } else {
-            $invoice = Funnel::addPayment($request->userId, $request->amount, null, $request->tariff, null, $request->comment);
+            $invoice = Funnel::addPayment($request->userId, $request->amount, null, null, null, $request->comment);
 
             return $this->response->array([
                 'invoice' => $invoice

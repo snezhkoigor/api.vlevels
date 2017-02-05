@@ -45,4 +45,5 @@ $api->version('v1',  ['middleware' => 'cors', 'namespace' => 'App\Http\Controlle
 
 $api->version('lp',  ['middleware' => 'cors', 'namespace' => 'App\Http\Controllers\Api\Lp'], function ($api) {
     $api->post('registration', 'CmeInfoController@registration');
+    $api->post('payment.add', 'PaymentController@add');
 });
