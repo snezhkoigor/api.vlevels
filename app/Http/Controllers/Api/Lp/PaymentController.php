@@ -25,15 +25,33 @@ class PaymentController extends Controller
 
     public function get(Request $request)
     {
+        $result = [];
+
         if (empty($request->invoiceId)) {
             $this->response->errorBadRequest();
         } else {
-            $invoice = Funnel::addPayment($request->userId, $request->amount, 0, $request->tariff, '', $request->comment);
+            $invoice = DB::connection('oldMysql')
+                ->table('payment')
+                ->where('id', '=', $request->invoiceId)
+                ->first();
 
-            return $this->response->array([
-                'invoice' => $invoice
-            ]);
+            if ($invoice) {
+                $user = DB::connection('oldMysql')
+                    ->table('users')
+                    ->where('id', '=', $invoice->_id_user)
+                    ->first();
+
+                $result = [
+                    'invoiceId' => $invoice->_id,
+                    'email' => $user->email,
+                    'phone' => $user->phone,
+                    'name' => $user->name,
+                    'surname' => $user->surname
+                ];
+            }
         }
+
+        return $this->response->array($result);
     }
 
     public function add(Request $request)
