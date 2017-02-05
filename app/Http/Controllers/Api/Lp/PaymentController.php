@@ -32,7 +32,7 @@ class PaymentController extends Controller
         } else {
             $invoice = DB::connection('oldMysql')
                 ->table('payment')
-                ->where('invoice', '=', $request->invoiceId)
+                ->where('_invoce', '=', $request->invoiceId)
                 ->first();
 
             if ($invoice) {
@@ -42,7 +42,7 @@ class PaymentController extends Controller
                     ->first();
 
                 $result = [
-                    'invoiceId' => $invoice->invoice,
+                    'invoiceId' => $invoice->_invoce,
                     'email' => $user->email,
                     'phone' => $user->phone,
                     'name' => $user->name,
