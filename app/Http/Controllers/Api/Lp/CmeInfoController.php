@@ -32,7 +32,6 @@ class CmeInfoController extends Controller
 
     public function registration(Request $request)
     {
-        $request->phone = '+7' . $request->phone;
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:oldMysql.users|max:100',
             'phone' => 'required|unique:oldMysql.users|max:15'

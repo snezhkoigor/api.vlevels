@@ -91,11 +91,6 @@ class PaymentController extends Controller
 
         $response = $gateway->purchase(['amount' => '1.00', 'currency' => 'RUB', 'testMode' => false, 'FormComment'=>'test'])->send();
 
-        var_dump($response->getRedirectData());die;
-
-        return $this->response->array([
-            'sms_answer' => $answer,
-            'user' => $user->id
-        ]);
+        return $this->response->array($response->getRedirectData());
     }
 }
