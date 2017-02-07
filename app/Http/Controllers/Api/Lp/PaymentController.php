@@ -88,6 +88,15 @@ class PaymentController extends Controller
                 ->where('_invoce', '=', $request->invoiceId)
                 ->first();
 
+            if (!empty($request->name)) {
+                DB::connection('oldMysql')
+                    ->table('users')
+                    ->where('id', '=', $invoice->_id_user)
+                    ->update([
+                        'name' => $request->name
+                    ]);
+            }
+
             switch ($request->paymentSystem) {
                 case 'YM':
                     DB::connection('oldMysql')
