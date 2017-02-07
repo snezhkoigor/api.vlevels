@@ -103,7 +103,7 @@ class PaymentController extends Controller
                     $gateway->setLabel($invoice->_comment);
                     $gateway->setPassword('CH+/mBSKzhlKvoX8uKG56att');
                     $gateway->setOrderId($request->invoiceId);
-                    $gateway->setMethod('PC');
+                    $gateway->setMethod('AC');
                     $gateway->setReturnUrl('http://vlevels.ru/success');
                     $gateway->setCancelUrl('http://vlevels.ru/fail');
 
