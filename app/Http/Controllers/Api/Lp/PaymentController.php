@@ -80,17 +80,45 @@ class PaymentController extends Controller
 
     public function pay(Request $request)
     {
-        $gateway = Omnipay::create('\yandexmoney\YandexMoney\GatewayIndividual');
-        $gateway->setAccount('41001310031527');
-        $gateway->setLabel('Volume Levels');
-        $gateway->setPassword('CH+/mBSKzhlKvoX8uKG56att');
-        $gateway->setOrderId('1212121212');
-        $gateway->setMethod('AC');
-        $gateway->setReturnUrl('http://vlevels.ru/success');
-        $gateway->setCancelUrl('http://vlevels.ru/fail');
+        $result = null;
 
-        $response = $gateway->purchase(['amount' => '1.00', 'currency' => 'RUB', 'testMode' => false, 'FormComment'=>'test'])->send();
+        if (!empty($request->paymentSystem) && !empty($request->invoiceId)) {
+            $invoice = DB::connection('oldMysql')
+                ->table('payment')
+                ->where('_invoce', '=', $request->invoiceId)
+                ->first();
 
-        return $this->response->array($response->getRedirectData());
+            switch ($request->paymentSystem) {
+                case 'YM':
+                    DB::connection('oldMysql')
+                        ->table('payment')
+                        ->where('_invoce', '=', $request->invoiceId)
+                        ->update([
+                            '_payment_type' => 'Yandex.Money',
+                            '_fee' => round(($invoice->_amount*0.5)/100, 2)
+                        ]);
+
+                    $gateway = Omnipay::create('\yandexmoney\YandexMoney\GatewayIndividual');
+                    $gateway->setAccount('41001310031527');
+                    $gateway->setLabel($invoice->_comment);
+                    $gateway->setPassword('CH+/mBSKzhlKvoX8uKG56att');
+                    $gateway->setOrderId($request->invoiceId);
+                    $gateway->setMethod('PC');
+                    $gateway->setReturnUrl('http://vlevels.ru/success');
+                    $gateway->setCancelUrl('http://vlevels.ru/fail');
+
+                    $response = $gateway->purchase(['amount' => $invoice->_amount, 'currency' => 'RUB', 'testMode' => true, 'FormComment' => $request->formComment])->send();
+
+                    $result = [
+                        'url' => $response->getEndpoint(),
+                        'method' => $response->getRedirectMethod(),
+                        'params' => $response->getRedirectData()
+                    ];
+
+                    break;
+            }
+        }
+
+        return $result;
     }
 }
