@@ -107,7 +107,7 @@ class PaymentController extends Controller
                     $gateway->setReturnUrl('http://vlevels.ru/success');
                     $gateway->setCancelUrl('http://vlevels.ru/fail');
 
-                    $response = $gateway->purchase(['amount' => $invoice->_amount, 'currency' => 'RUB', 'testMode' => true, 'FormComment' => $request->formComment])->send();
+                    $response = $gateway->purchase(['amount' => $invoice->_amount, 'currency' => 'RUB', 'testMode' => false, 'FormComment' => $request->formComment])->send();
 
                     $result = [
                         'actionUrl' => $response->getEndpoint(),
