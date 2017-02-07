@@ -110,7 +110,7 @@ class PaymentController extends Controller
                     $response = $gateway->purchase(['amount' => $invoice->_amount, 'currency' => 'RUB', 'testMode' => true, 'FormComment' => $request->formComment])->send();
 
                     $result = [
-                        'url' => $response->getEndpoint(),
+                        'actionUrl' => $response->getEndpoint(),
                         'method' => $response->getRedirectMethod(),
                         'params' => $response->getRedirectData()
                     ];
