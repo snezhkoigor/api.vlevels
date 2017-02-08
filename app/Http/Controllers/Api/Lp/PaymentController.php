@@ -103,7 +103,9 @@ class PaymentController extends Controller
                         ->table('payment')
                         ->where('_invoce', '=', $request->invoiceId)
                         ->update([
-                            '_payment_type' => 'Web Money'
+                            '_payment_type' => 'Web Money',
+                            '_fee' => 0,
+                            '_amount' => 1
                         ]);
 
                     $gateway = Omnipay::create('\Omnipay\WebMoney\Gateway');
@@ -115,8 +117,8 @@ class PaymentController extends Controller
                         'currency' => 'USD',
                         'testMode' => false,
                         'description' => $request->formComment,
-                        'returnUrl' => 'http://vlevels.ru/success',
-                        'cancelUrl' => 'http://vlevels.ru/fail',
+                        'returnUrl' => 'http://cmeinfo.vlevels.ru/success',
+                        'cancelUrl' => 'http://cmeinfo.vlevels.ru/payment',
                         'notifyUrl' => 'http://api.vlevels.ru/merchant/webmoney.php'
                     ])->send();
 
@@ -142,8 +144,8 @@ class PaymentController extends Controller
                     $gateway->setPassword('CH+/mBSKzhlKvoX8uKG56att');
                     $gateway->setOrderId($request->invoiceId);
                     $gateway->setMethod('PC');
-                    $gateway->setReturnUrl('http://vlevels.ru/success');
-                    $gateway->setCancelUrl('http://vlevels.ru/fail');
+                    $gateway->setReturnUrl('http://cmeinfo.vlevels.ru/success');
+                    $gateway->setCancelUrl('http://cmeinfo.vlevels.ru/payment');
 
                     $response = $gateway->purchase(['amount' => $invoice->_amount, 'currency' => 'RUB', 'testMode' => false, 'FormComment' => $request->formComment])->send();
 
@@ -171,8 +173,8 @@ class PaymentController extends Controller
                     $gateway->setPassword('CH+/mBSKzhlKvoX8uKG56att');
                     $gateway->setOrderId($request->invoiceId);
                     $gateway->setMethod('AC');
-                    $gateway->setReturnUrl('http://vlevels.ru/success');
-                    $gateway->setCancelUrl('http://vlevels.ru/fail');
+                    $gateway->setReturnUrl('http://cmeinfo.vlevels.ru/success');
+                    $gateway->setCancelUrl('http://cmeinfo.vlevels.ru/payment');
 
                     $response = $gateway->purchase(['amount' => $invoice->_amount, 'currency' => 'RUB', 'testMode' => false, 'FormComment' => $request->formComment])->send();
 
