@@ -121,7 +121,7 @@ class PaymentController extends Controller
                     ])->send();
 
                     $result = [
-                        'actionUrl' => $response->getEndpoint(),
+                        'actionUrl' => $response->getRedirectUrl(),
                         'method' => $response->getRedirectMethod(),
                         'params' => $response->getRedirectData()
                     ];
