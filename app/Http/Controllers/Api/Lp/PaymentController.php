@@ -98,6 +98,35 @@ class PaymentController extends Controller
             }
 
             switch ($request->paymentSystem) {
+                case 'WM':
+                    DB::connection('oldMysql')
+                        ->table('payment')
+                        ->where('_invoce', '=', $request->invoiceId)
+                        ->update([
+                            '_payment_type' => 'Web Money'
+                        ]);
+
+                    $gateway = Omnipay::create('\Omnipay\WebMoney\Gateway');
+                    $gateway->setMerchantPurse('Z229902436381');
+
+                    $response = $gateway->purchase([
+                        'amount' => '1.00',
+                        'transactionId' => $request->invoiceId,
+                        'currency' => 'USD',
+                        'testMode' => false,
+                        'description' => $request->formComment,
+                        'returnUrl' => 'http://vlevels.ru/success',
+                        'cancelUrl' => 'http://vlevels.ru/fail',
+                        'notifyUrl' => 'http://api.vlevels.ru/merchant/webmoney.php'
+                    ])->send();
+
+                    $result = [
+                        'actionUrl' => $response->getEndpoint(),
+                        'method' => $response->getRedirectMethod(),
+                        'params' => $response->getRedirectData()
+                    ];
+
+                    break;
                 case 'YM':
                     DB::connection('oldMysql')
                         ->table('payment')
