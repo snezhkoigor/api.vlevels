@@ -66,13 +66,18 @@ class Funnel
     public static function addPayment($userId, $amount, $fee, $tariff, $paymentType, $comment)
     {
         $invoice = null;
+//        $lastPayment = DB::connection('oldMysql')
+//            ->table('payment')
+//            ->orderBy('_id', 'desc')
+//            ->first();
+
         $lastPayment = DB::connection('oldMysql')
-            ->table('payment')
+            ->table('settings')
             ->orderBy('_id', 'desc')
             ->first();
 
         if ($lastPayment) {
-            $invoice = (int)$lastPayment->_invoce + 1;
+            $invoice = (int)$lastPayment->_payment_no;
 
             DB::connection('oldMysql')
                 ->table('payment')
@@ -94,6 +99,13 @@ class Funnel
                         '_comment' => $comment
                     ]
                 );
+
+            DB::connection('oldMysql')
+                ->table('settings')
+                ->where('_id', '=', 1)
+                ->update([
+                    '_payment_no' => $invoice + 1
+                ]);
         }
 
         return $invoice;
